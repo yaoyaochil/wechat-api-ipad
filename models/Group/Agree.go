@@ -1,0 +1,5 @@
+package Group
+
+func Agree() {
+
+}

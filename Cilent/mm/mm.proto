@@ -1,0 +1,2935 @@
+syntax="proto2";
+option go_package = ".;mm";
+
+message BaseResponse {
+    optional  int32  ret  = 1;
+    optional  SKBuiltinString_t  errMsg  = 2;
+}
+
+
+message SKBuiltinString_t {
+    optional  string  string  = 1;
+}
+
+message SnsBufferUrl {
+    optional  string  Url  = 1;
+    optional  uint32  Type  = 3;
+}
+
+message RealHostInfo
+{
+    optional string host  		= 1;				//host
+    optional string redirect  	= 2;				//redirect_host
+}
+
+message HostList {
+    optional  uint32  count  = 1;
+    repeated  RealHostInfo list  = 2;
+}
+
+message NetworkControl {
+    optional  string  portList  = 1;
+    optional  string  timeoutList  = 2;
+    optional  uint32  minNoopInterval  = 3;
+    optional  uint32  maxNoopInterval  = 4;
+    optional  int32  typingInterval  = 5;
+    optional  int32  noopIntervalTime  = 7;
+}
+message IPInfo
+{
+    optional string ip  	= 3;					//ip
+    optional string host  	= 4;					//host
+}
+
+message BuiltinIPList {
+    optional  uint32  longConnectIpcount  = 1;
+    optional  uint32  shortConnectIpcount  = 2;
+    repeated  IPInfo longConnectIplist  = 3;
+    repeated  IPInfo  shortConnectIplist  = 4;
+    optional  uint32  seq  = 5;
+}
+
+message NetworkSectResp {
+    optional  HostList  newHostList  = 1;
+    optional  NetworkControl  networkControl  = 2;
+    optional  BuiltinIPList  builtinIplist  = 3;
+}
+message AxAuthSecRespList {
+    optional  uint32  count  = 1;
+    repeated  bytes  list  = 2;
+}
+
+message UnifyAuthResponse {
+    optional  BaseResponse  baseResponse  = 1;
+    optional  uint32  unifyAuthSectFlag  = 2;
+    optional  AuthSectResp  authSectResp  = 3;
+    optional  AcctSectResp  acctSectResp  = 4;
+    optional  NetworkSectResp  networkSectResp  = 5;
+    optional  AxAuthSecRespList  axAuthSecRespList  = 6;
+}
+
+message SKBuiltinBuffer_t {
+    optional  uint32  iLen  = 1;
+    optional  bytes  buffer  = 2;
+}
+
+message SKBuiltinString_S {
+    optional  uint32  iLen  = 1;
+    optional  string  buffer  = 2;
+}
+
+message SKBuiltinBuffer_K {
+    optional  uint32  iLen  = 1;
+    optional  string  buffer  = 2;
+}
+
+message ECDHKey {
+    optional  int32  nid  = 1;
+    optional  SKBuiltinBuffer_t  key  = 2;
+}
+
+message WTLoginImgRespInfo {
+    optional  string  imgEncryptKey  = 1;
+    optional  SKBuiltinBuffer_t  ksid  = 2;
+    optional  string  imgSid  = 3;
+    optional  SKBuiltinBuffer_t  imgBuf  = 4;
+}
+
+message WxVerifyCodeRespInfo {
+    optional  string  verifySignature  = 1;
+    optional  SKBuiltinBuffer_t  verifyBuff  = 2;
+}
+message ShowStyleKey {
+    optional  uint32  keyCount  = 1;
+    repeated  bytes key  = 2;
+}
+
+message AuthSectResp {
+    optional  uint32  uin  = 1;
+    optional  ECDHKey  svrPubEcdhkey  = 2;
+    optional  SKBuiltinBuffer_t  sessionKey  = 3;
+    optional  SKBuiltinBuffer_t  autoAuthKey  = 4;
+    optional  uint32  wtloginRspBuffFlag  = 5;
+    optional  SKBuiltinBuffer_t  wtloginRspBuff  = 6;
+    optional  WTLoginImgRespInfo  wtloginImgRespInfo  = 7;
+    optional  WxVerifyCodeRespInfo  wxVerifyCodeRespInfo  = 8;
+    optional  SKBuiltinBuffer_t  cliDbencryptKey  = 9;
+    optional  SKBuiltinBuffer_t  cliDbencryptInfo  = 10;
+    optional  string  authKey  = 11;
+    optional  SKBuiltinBuffer_t  a2Key  = 12;
+    optional  string  applyBetaUrl  = 14;
+    optional  ShowStyleKey  showStyle  = 15;
+    optional  string  authTicket  = 16;
+    optional  uint32  newVersion  = 17;
+    optional  uint32  updateFlag  = 18;
+    optional  uint32  authResultFlag  = 19;
+    optional  string  fsurl  = 20;
+    optional  uint32  mmtlsControlBitFlag  = 21;
+    optional  uint32  serverTime  = 22;
+    optional  SKBuiltinBuffer_t  clientSessionKey  = 23;
+    optional  SKBuiltinBuffer_t  serverSessionKey  = 24;
+    optional  uint32  ecdhControlFlag  = 25;
+}
+
+message AcctSectResp {
+    optional  string  userName  = 1;
+    optional  string  nickName  = 2;
+    optional  uint32  bindUin  = 3;
+    optional  string  bindEmail  = 4;
+    optional  string  bindMobile  = 5;
+    optional  string  alias  = 6;
+    optional  uint32  status  = 8;
+    optional  uint32  pluginFlag  = 9;
+    optional  uint32  regType  = 10;
+    optional  string  deviceInfoXml  = 11;
+    optional  uint32  safeDevice  = 12;
+    optional  string  officialUserName  = 13;
+    optional  string  officialNickName  = 14;
+    optional  uint32  pushMailStatus  = 15;
+    optional  string  fsurl  = 16;
+}
+
+message BaseRequest {
+    optional  bytes  sessionKey  = 1;
+    optional  uint32  uin  = 2;
+    optional  bytes  deviceId  = 3;
+    optional  int32  clientVersion  = 4;
+    optional  bytes  deviceType  = 5;
+    optional  uint32  scene  = 6;
+}
+
+message ReceiveWxaHBRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  string  appid  = 2;
+    optional  string  sendid  = 3;
+}
+
+
+message ReceiveWxaHBResponse {
+    optional  BaseResponse  baseResponse  = 1;
+    optional  uint32  wxahbStatus  = 2;
+    optional  string  wishing  = 3;
+    optional  string  sendNickname  = 4;
+    optional  string  sendHeadimg  = 5;
+    optional  bytes  signature  = 6;
+    optional  int32  hbStatus  = 7;
+    optional  int32  receiveStatus  = 8;
+    optional  int32  isSender  = 9;
+    optional  int32  hbType  = 10;
+    optional  string  tips  = 11;
+    optional  string  errorwording  = 12;
+    optional  string  sendUsername  = 13;
+}
+message GetLoginQRCodeRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  SKBuiltinBuffer_t  randomEncryKey  = 2;
+    optional  uint32  opcode  = 3;
+    optional  string  deviceName  = 4;
+    optional  string  userName  = 5;
+    optional  uint32  extDevLoginType  = 6;
+    optional  string  hardwareExtra  = 7;
+    optional  string  softType  = 8;
+    optional  SKBuiltinBuffer_t  msgContextPubKey  = 9;
+}
+
+message GetLoginQRCodeResponse {
+    optional  BaseResponse  baseResponse  = 1;
+    optional  SKBuiltinBuffer_t  qrcode  = 2;
+    optional  string  uuid  = 3;
+    optional  uint32  checkTime  = 4;
+    optional  SKBuiltinBuffer_t  notifyKey  = 5;
+    optional  uint32  expiredTime  = 6;
+    optional  string  blueToothBroadCastUuid  = 7;
+    optional  SKBuiltinBuffer_t  blueToothBroadCastContent  = 8;
+}
+
+message HybridEcdhRequest{
+    optional int32 type = 1;
+    optional SKBuiltinBuffer_t SecECDHKey = 2;
+    optional bytes randomkeydata = 3;
+    optional bytes randomkeyextenddata = 4;
+    optional bytes encyptdata = 5;
+}
+
+message HybridEcdhResponse{
+    optional SKBuiltinBuffer_t SecECDHKey = 1;
+    optional int32 type = 2;
+    optional bytes decryptdata = 3;
+    optional bytes randomkeyextenddata = 4;
+}
+message ManualAuthRsaReqData {
+    optional  SKBuiltinBuffer_t  randomEncryKey  = 1;
+    optional  ECDHKey  cliPubEcdhkey  = 2;
+    optional  string  userName  = 3;
+    optional  string  pwd  = 4;
+    optional  string  pwd2  = 5;
+}
+message WTLoginImgReqInfo {
+    optional  string  imgSid  = 1;
+    optional  string  imgCode  = 2;
+    optional  string  imgEncryptKey  = 3;
+    optional  SKBuiltinBuffer_t  ksid  = 4;
+}
+message WxVerifyCodeReqInfo {
+    optional  string  verifySignature  = 1;
+    optional  string  verifyContent  = 2;
+}
+
+message BaseAuthReqInfo {
+    optional  SKBuiltinBuffer_t  wtloginReqBuff  = 1;
+    optional  WTLoginImgReqInfo  wtloginImgReqInfo  = 2;
+    optional  WxVerifyCodeReqInfo  wxVerifyCodeReqInfo  = 3;
+    optional  SKBuiltinBuffer_t  cliDbencryptKey  = 4;
+    optional  SKBuiltinBuffer_t  cliDbencryptInfo  = 5;
+    optional  uint32  authReqFlag  = 6;
+    optional  string  authTicket  = 7;
+}
+
+message ManualAuthAesReqData {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  BaseAuthReqInfo  baseReqInfo  = 2;
+    optional  string  imei  = 3;
+    optional  string  softType  = 4;
+    optional  uint32  builtinIpseq  = 5;
+    optional  string  clientSeqId  = 6;
+    optional  string  signature  = 7;
+    optional  string  deviceName  = 8;
+    optional  string  deviceType  = 9;
+    optional  string  language  = 10;
+    optional  string  timeZone  = 11;
+    optional  int32  channel  = 13;
+    optional  uint32  timeStamp  = 14;
+    optional  string  deviceBrand  = 15;
+    optional  string  deviceModel  = 16;
+    optional  string  ostype  = 17;
+    optional  string  realCountry  = 18;
+    optional  string  bundleId  = 19;
+    optional  string  adSource  = 20;
+    optional  string  iphoneVer  = 21;
+    optional  uint32  inputType  = 22;
+    optional  SKBuiltinBuffer_t  clientCheckData  = 23;
+    optional  SKBuiltinBuffer_t  extSpamInfo  = 24;
+}
+
+message SecManualLoginRequest{
+    optional  ManualAuthRsaReqData  rsaReqData  = 1;
+    optional  ManualAuthAesReqData  aesReqData  = 2;
+}
+
+message SecAutoLoginRequest{
+    optional  ManualAuthRsaReqData  rsaReqData  = 1;
+    optional  ManualAuthAesReqData  aesReqData  = 2;
+}
+
+message CheckLoginQRCodeRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  SKBuiltinBuffer_t  randomEncryKey  = 2;
+    optional  string  uuid  = 3;
+    optional  uint32  timeStamp  = 4;
+    optional  uint32  opcode  = 5;
+}
+
+message CheckLoginQRCodeResponse {
+    optional  BaseResponse  baseResponse  = 1;
+    optional  LoginQRCodeNotifyPkg  notifyPkg  = 3;
+}
+
+message LoginQRCodeNotifyPkg {
+    optional  SKBuiltinBuffer_t  notifyData  = 1;
+    optional  uint32  opcode  = 2;
+}
+
+message LoginQRCodeNotify {
+    optional  string  uuid  = 1;
+    optional  uint32  status  = 2;
+    optional  string  userName  = 3;
+    optional  string  pwd  = 4;
+    optional  string  headImgUrl  = 5;
+    optional  uint32  pushLoginUrlexpiredTime  = 6;
+    optional  string  nickName  = 7;
+    optional  uint32  expiredTime  = 8;
+}
+
+
+message SpamDataBody {
+    optional int32 unKnown1=1;
+    optional int32 timeStamp=2;
+    optional int32 keyHash=3;
+    optional string yes1=11;
+    optional string yes2=12;
+    optional string iosVersion=13;
+    optional string deviceType=14;
+    optional int32 unKnown2 =15;
+    optional string identifierForVendor=16;
+    optional string advertisingIdentifier =17;
+    optional string carrier=18;
+    optional int32 batteryInfo=19;
+    optional string networkName=20;
+    optional int32 netType=21;
+    optional string appBundleId=22;
+    optional string deviceName=23;
+    optional string userName=24;
+    optional int64 unknown3=25;
+    optional int64 unknown4=26;
+    optional int32 unknown5=27;
+    optional int32 unknown6=28;
+    optional string lang=29;
+    optional string country=30;
+    optional int32 unknown7=31;
+    optional string documentDir=32;
+    optional int32 unknown8=33;
+    optional int32 unknown9=34;
+    optional string headMD5=35;
+    optional string appUUID=36;
+    optional string syslogUUID=37;
+    optional string unknown10=38;
+    optional string unknown11=39;
+    optional string appName =40;
+    optional string sshPath=41;
+    optional string tempTest=42;
+    optional string devMD5=43;
+    optional string devUser=44;
+    optional string devPrefix=45;
+    repeated FileInfo appFileInfo=46;
+    optional string unknown12=47;
+    optional int32 isModify=50;
+    optional string modifyMD5=51;
+    optional int64 rqtHash=52;
+}
+message FileInfo{
+    optional  string  filepath  = 1;
+    optional  string  fileuuid  = 2;
+}
+
+message CryptoData {
+    optional bytes version = 1;
+    optional uint32 type = 2;
+    optional bytes encryptData = 3;
+    optional uint32 timestamp = 4;
+    optional uint32 unknown5 = 5;
+    optional uint32 unknown6 = 6;
+}
+
+message WCExtInfo {
+    optional  SKBuiltinBuffer_t  wcstf  = 1 ;
+    optional  SKBuiltinBuffer_t  wcste  = 2 ;
+    optional  SKBuiltinBuffer_t  ccData  = 3 ;
+    optional  SKBuiltinBuffer_t  userAttrInfo  = 4 ;
+    optional  SKBuiltinBuffer_t  acgiDeviceInfo  = 5 ;
+    optional  SKBuiltinBuffer_t  acgiTuring  = 6 ;
+    optional  SKBuiltinBuffer_t  deviceToken  = 7 ;
+    optional  SKBuiltinBuffer_t  iosturingHuman  = 101 ;
+    optional  SKBuiltinBuffer_t  iosturingOwner  = 102 ;
+}
+
+message wcaes{
+    optional bytes type = 1;
+    optional bytes IV =2;
+    optional int32 len = 3;
+    optional bytes mztkey =4;
+    optional bytes mztkeyvalue =5;
+    optional bytes unkown6 =6;
+    optional bytes unkown7 =7;
+    optional bytes unkown8 =8;
+    optional bytes unkown9 =9;
+    optional bytes tablekey =10;
+    optional bytes unkown11 =11;
+    optional bytes tablevalue =12;
+    optional bytes unkown13 =13;
+    optional bytes unkown14 =14;
+    optional bytes unkown15 =15;
+    optional bytes unkown16 =16;
+    optional bytes unkown17 =17;
+    optional bytes unkown18 =18;
+    optional bytes unkown19 =19;
+    optional bytes unkown20 =20;
+    optional bytes unkown21 =21;
+    optional bytes unkown22 =22;
+    optional bytes unkown23 =23;
+    optional bytes unkown24 =24;
+    optional bytes unkown25 =25;
+}
+
+message NewClientCheckData
+{
+    optional  int64  c32cdata  = 1;
+    optional  int64  timeStamp  = 2;
+    optional  bytes databody = 3;
+}
+message CmdList {
+    optional uint32 Count = 1;
+    repeated CmdItem List = 2;
+}
+message CmdItem {
+    optional int32 CmdId = 1;
+    optional SKBuiltinBuffer_t CmdBuf = 2;
+}
+
+message NewSyncRequest {
+    optional  CmdList  oplog  = 1;
+    optional  uint32  selector  = 2;
+    optional  SKBuiltinBuffer_t  keyBuf  = 3;
+    optional  uint32  scene  = 4;
+    optional  string  deviceType  = 5;
+    optional  uint32  syncMsgDigest  = 6;
+}
+
+message NewSyncResponse {
+    optional int32 Ret = 1;
+    optional CmdList CmdList = 2;
+    optional int32 ContinueFlag = 3;
+    optional SKBuiltinBuffer_t KeyBuf = 4;
+    optional int32 Status = 5;
+    optional int32 Continue = 6;
+    optional int32 time = 7;
+}
+//新设备第一次登录初始化请求
+message NewInitRequest {
+    optional BaseRequest BaseRequest = 1;
+    optional string UserName = 2;
+    optional SKBuiltinBuffer_t CurrentSynckey = 3;
+    optional SKBuiltinBuffer_t MaxSynckey = 4;
+    optional string Language = 5;
+}
+
+//新设备第一次登录初始化服务器响应
+message NewInitResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional SKBuiltinBuffer_t CurrentSynckey = 2; //二次同步需要带入
+    optional SKBuiltinBuffer_t MaxSynckey = 3; //二次同步需要带入
+    optional uint32 ContinueFlag = 4;   //等于1需要继续同步
+    optional uint32 SelectBitmap = 5;
+    optional uint32 CmdCount = 6;
+    repeated CmdItem CmdList = 7;
+    optional uint32 Ratio = 8;
+}
+message AutoAuthRsaReqData {
+    optional  SKBuiltinBuffer_t  aesEncryptKey  = 2;
+    optional  ECDHKey  cliPubEcdhkey  = 3;
+}
+
+
+message AutoAuthRequest {
+    optional  AutoAuthRsaReqData  rsaReqData  = 1;
+    optional  AutoAuthAesReqData  aesReqData  = 2;
+}
+
+message AutoAuthAesReqData {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  BaseAuthReqInfo  baseReqInfo  = 2;
+    optional  SKBuiltinBuffer_t  autoAuthKey  = 3;
+    optional  string  imei  = 4;
+    optional  string  softType  = 5;
+    optional  uint32  builtinIpseq  = 6;
+    optional  string  clientSeqId  = 7;
+    optional  string  signature  = 8;
+    optional  string  deviceName  = 9;
+    optional  string  deviceType  = 10;
+    optional  string  language  = 11;
+    optional  string  timeZone  = 12;
+    optional  int32  channel  = 13;
+    optional  SKBuiltinBuffer_t  clientCheckData  = 14;
+    optional  SKBuiltinBuffer_t  extSpamInfo  = 15;
+}
+
+message PushLoginURLRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  string  username = 2;
+    optional  string  Autoauthticket = 3;
+    optional  string  ClientId = 4;
+    optional  SKBuiltinBuffer_t  randomEncryKey  = 5;
+    optional  int32  Opcode = 6;
+    optional  string  Devicename = 7;
+    optional  SKBuiltinBuffer_t  Autoauthkey = 8;
+    optional  string  HardwareExtra = 9;
+    optional  SKBuiltinBuffer_t  MsgContextPubKey = 10;
+}
+
+message PushLoginURLResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional string Uuid = 2;
+    optional SKBuiltinBuffer_t NotifyKey = 3;
+    optional uint64 CheckTime = 4;
+    optional uint64 ExpiredTime = 5;
+    optional string BlueToothBroadCastUuid = 6;
+    optional SKBuiltinBuffer_t BlueToothBroadCastContent = 7;
+}
+
+message NewSendMsgRequest {
+    optional  int32  cnt  = 1;
+    optional  ChatInfo  info  = 2;
+}
+
+message NewSendMsgRespone {
+    optional BaseResponse BaseResponse = 1;
+    optional int32 Count = 2;
+    repeated NewMsgResponeNew List = 3;
+    optional int32 NoKnow = 4;
+
+}
+
+message NewMsgResponeNew {
+    optional int64 Ret = 1;
+    optional SKBuiltinString_t ToUsetName = 2;
+    optional uint64 MsgId = 3;
+    optional uint64 ClientMsgid = 4;
+    optional uint32 Createtime = 5;
+    optional uint32 servertime = 6;
+    optional uint32 Type = 7;
+    optional uint64 NewMsgId = 8;
+}
+
+//===========撤回消息
+message RevokeMsgRequest {
+    optional BaseRequest  BaseRequest  = 1;
+    optional string clientMsgId = 2;
+    optional uint64 newClientMsgId = 3;
+    optional uint64 createTime = 4;
+    optional uint64 indexOfRequest = 5;
+    optional string FromUserName = 6;
+    optional string ToUserName = 7;
+    optional uint64 MsgId = 8;
+    optional uint64 NewMsgId = 9;
+}
+
+message RevokeMsgResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional string introduction = 2;
+    optional string isysWording = 3;
+}
+
+//===========撤回消息
+
+message ChatInfo {
+    optional    SKBuiltinString_t   toid        = 1;
+    optional    string              content     = 2;
+    optional    int64               type        = 3;
+    optional    int64               utc         = 4;
+    optional    uint64              clientMsgId = 5;
+    optional    string              msgSource   = 6;
+}
+
+message AutoAuthKey {
+    optional  SKBuiltinBuffer_t  EncryptKey  = 1;
+    optional  SKBuiltinBuffer_t  Key  = 2;
+}
+
+message SnsUserInfo {
+    optional  uint32  SnsFlag  = 1;
+    optional  string  SnsBgimgId  = 2;
+    optional  uint64  SnsBgobjectId  = 3;
+    optional  uint32  SnsFlagEx  = 4;
+}
+
+message SnsServerConfig {
+    optional  int32  PostMentionLimit  = 1;
+    optional  int32  CopyAndPasteWordLimit  = 2;
+}
+
+message SnsObject {
+    optional  uint64  Id  = 1;
+    optional  string  Username  = 2;
+    optional  string  Nickname  = 3;
+    optional  uint32  CreateTime  = 4;
+    optional  SKBuiltinString_S  ObjectDesc  = 5;
+    optional  uint32  LikeFlag  = 6;
+    optional  uint32  LikeCount  = 7;
+    optional  uint32  LikeUserListCount  = 8;
+    repeated  SnsCommentInfo  LikeUserList  = 9;
+    optional  uint32  CommentCount  = 10;
+    optional  uint32  CommentUserListCount  = 11;
+    repeated  SnsCommentInfo  CommentUserList  = 12;
+    optional  uint32  WithUserCount  = 13;
+    optional  uint32  WithUserListCount  = 14;
+    repeated  SnsCommentInfo  WithUserList  = 15;
+    optional  uint32  ExtFlag  = 16;
+    optional  uint32  NoChange  = 17;
+    optional  uint32  GroupCount  = 18;
+    repeated  SnsGroup  GroupList  = 19;
+    optional  uint32  IsNotRichText  = 20;
+    optional  string  ReferUsername  = 21;
+    optional  uint64  ReferId  = 22;
+    optional  uint32  BlackListCount  = 23;
+    repeated  SKBuiltinBuffer_t  BlackList  = 24;
+    optional  uint32  DeleteFlag  = 25;
+    optional  uint32  GroupUserCount  = 26;
+    repeated  SKBuiltinBuffer_t  GroupUser  = 27;
+    repeated  SKBuiltinBuffer_t  ObjectOperations  = 28;
+    optional  SnsRedEnvelops  SnsRedEnvelops  = 29;
+    optional  PreDownloadInfo  PreDownloadInfo  = 30;
+    optional  SnsWeAppInfo  WeAppInfo  = 31;
+}
+
+message SnsCommentInfo {
+    optional  string  Username  = 1;
+    optional  string  Nickname  = 2;
+    optional  uint32  Source  = 3;
+    optional  uint32  Type  = 4;
+    optional  string  Content  = 5;
+    optional  uint32  CreateTime  = 6;
+    optional  int32  CommentId  = 7;
+    optional  int32  ReplyCommentId  = 8;
+    optional  string  ReplyUsername  = 9;
+    optional  uint32  IsNotRichText  = 10;
+    optional  uint64  ReplyCommentId2  = 11;
+    optional  uint64  CommentId2  = 12;
+    optional  uint32  DeleteFlag  = 13;
+    optional  uint32  CommentFlag  = 14;
+}
+
+message SnsGroup {
+    optional  uint64  GroupId  = 1;
+}
+
+message SnsRedEnvelops {
+    optional  uint32  RewardCount  = 1;
+    optional  bytes  RewardUserList  = 2;
+    optional  uint32  ReportId  = 3;
+    optional  uint32  ReportKey  = 4;
+    optional  uint32  ResourceId  = 5;
+}
+
+message PreDownloadInfo {
+    optional  uint32  PreDownloadPercent  = 1;
+    optional  uint32  PreDownloadNetType  = 2;
+    optional  string  NoPreDownloadRange  = 3;
+}
+
+message SnsWeAppInfo {
+    optional  string  MapPoiId  = 1;
+    optional  uint32  AppId  = 2;
+    optional  string  UserName  = 3;
+    optional  string  RedirectUrl  = 4;
+    optional  uint32  ShowType  = 5;
+    optional  uint32  RScore  = 6;
+}
+
+message GetA8KeyReq {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  uint32  OpCode  = 2;
+    optional  SKBuiltinBuffer_t  A2key  = 3;
+    optional  SKBuiltinString_t  AppID  = 4;
+    optional  SKBuiltinString_t  Scope  = 5;
+    optional  SKBuiltinString_t  State  = 6;
+    optional  SKBuiltinString_t  ReqUrl  = 7;
+    optional  string  FriendUserName  = 8;
+    optional  uint32  FriendQq  = 9;
+    optional  uint32  Scene  = 10;
+    optional  string  UserName  = 11;
+    optional  string  BundleID  = 12;
+    optional  bytes  A2KeyNew  = 13;
+    optional  uint32  Reason  = 14;
+    optional  uint32  FontScale  = 15;
+    optional  uint32  Flag  = 16;
+    optional  string  NetType  = 17;
+    optional  uint32  CodeType  = 18;
+    optional  uint32  CodeVersion  = 19;
+    optional  uint64  RequestId  = 20;
+    optional  string  FunctionId  = 21;
+    optional  uint32  WalletRegion  = 22;
+    optional  SKBuiltinBuffer_t  Cookie  = 23;
+    optional  string  OuterUrl  = 24;
+    optional  uint32  SubScene  = 25;
+}
+
+message GetA8KeyResp {
+    optional BaseResponse BaseResponse = 1;
+    optional string FullURL = 2;
+    optional string A8key = 3;
+    optional string ActionCode = 4;
+    optional string Title = 5;
+    optional string Content = 6;
+    optional JSAPIPermissionBitSet JSAPIPermission = 7;
+    optional GeneralControlBitSet GeneralControlBitSet = 8;
+    optional string UserName = 9;
+    optional string ShareURL = 15;
+    optional uint32 ScopeCount = 16;
+    repeated BizScopeInfo ScopeList = 17;
+    optional string AntispamTicket = 18;
+    optional string Ssid = 20;
+    optional string MID = 21;
+    optional DeepLinkBitSet DeepLinkBitSet = 22;
+    optional SKBuiltinBuffer_t JSAPIControlBytes = 23;
+    optional uint32 HttpHeaderCount = 24;
+    optional string HttpHeader = 25;
+    optional string Wording = 26;
+    optional string Headimg = 27;
+    optional SKBuiltinBuffer_t Cookie = 28;
+    optional string MenuWording = 29;
+}
+
+message JSAPIPermissionBitSet {
+    optional  uint32  bitValue = 1;
+    optional  uint32  bitValue2 = 2;
+    optional  uint32  bitValue3 = 3;
+    optional  uint32  bitValue4 = 4;
+}
+
+message GeneralControlBitSet {
+    optional  uint32  bitValue = 1;
+}
+
+message BizScopeInfo {
+    optional  string  scope   = 1;
+    optional  uint32  scopeStatus   = 2;
+    optional  string  scopeDesc   = 3;
+    optional  uint32  apiCount   = 4;
+    repeated  BizApiInfo  apiList   = 5;
+}
+
+message BizApiInfo {
+    optional    string  apiName  = 1;
+}
+
+message DeepLinkBitSet {
+    optional  uint64  bitValue = 1;
+}
+
+message TwitterInfo {
+    optional  string  OauthToken = 1;
+    optional  string  OauthTokenSecret = 2;
+}
+
+message SnsPostCtocUploadInfo {
+    optional  uint32  Flag = 1;
+    optional  uint32  PhotoCount = 2;
+}
+
+message SnsPostOperationFields {
+    optional  string  ShareUrlOriginal = 1;
+    optional  string  ShareUrlOpen = 2;
+    optional  string  JsAppid = 3;
+    optional  uint32  ContactTagCount = 4;
+    optional  uint32  TempUserCount = 5;
+}
+
+message CanvasInfo {
+    optional  string  DataBuffer = 1;
+}
+
+message MediaInfo {
+    optional  uint32  Source = 1;
+    optional  SnsMediaType  MediaType = 2;
+    optional  uint32  VideoPlayLength = 3;
+    optional  string  SessionId = 4;
+    optional  uint32  StartTime = 5;
+
+}
+
+enum SnsMediaType {
+    MMSNS_DATA_TEXT = 1;
+    MMSNS_DATA_PHOTO = 2;
+    MMSNS_DATA_VOICE = 3;
+    MMSNS_DATA_VIDEO = 4;
+    MMSNS_DATA_MUSIC = 5;
+    MMSNS_DATA_SIGHT = 6;
+}
+
+//朋友圈操作
+message SnsPostRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  SKBuiltinString_S  ObjectDesc   = 2;
+    optional  uint32  WithUserListNum   = 3;
+    repeated  SKBuiltinString_t  WithUserList   = 4;
+    optional  uint32  Privacy   = 5;
+    optional  uint32  SyncFlag   = 6;
+    optional  string  ClientId   = 7;
+    optional  uint32  PostBGImgType   = 8;
+    optional  uint32  GroupNum   = 9;
+    repeated  SnsGroup  GroupIds   = 10;
+    optional  uint32  ObjectSource   = 11;
+    optional  uint64  ReferId   = 12;
+    optional  uint32  BlackListNum   = 13;
+    repeated  SKBuiltinString_t  BlackList   = 14;
+    optional  TwitterInfo  TwitterInfo = 15;
+    optional  uint32  GroupUserNum  = 16;
+    repeated  SKBuiltinString_t  GroupUser  = 17;
+    optional  SnsPostCtocUploadInfo  CtocUploadInfo  = 18;
+    optional  SnsPostOperationFields  SnsPostOperationFields  = 19;
+    optional  SnsRedEnvelops  SnsRedEnvelops  = 20;
+    optional  SKBuiltinBuffer_t  PoiInfo  = 21;
+    optional  string  FromScene  = 22;
+    optional  CanvasInfo  CanvasInfo  = 23;
+    optional  uint32  MediaInfoCount  = 24;
+    repeated  MediaInfo  MediaInfo  = 25;
+    repeated  SnsWeAppInfo  WeAppInfo  = 26;
+    optional  SKBuiltinBuffer_t  ClientCheckData  = 27;
+    optional  SKBuiltinBuffer_t  ExtSpamInfo  = 28;
+}
+
+message SnsPostResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional SnsObject SnsObject = 2;
+    optional string SpamTips = 3;
+}
+
+message SnsObjectOpRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  uint32  opCount  = 2;
+    optional  SnsObjectOp  opList  = 3;
+}
+
+message SnsObjectOp {
+    optional  uint64  id  = 1;
+    optional  uint32  opType  = 2;
+    optional  SKBuiltinBuffer_t  ext  = 3;
+}
+
+enum SnsObjectOpType {
+    MMSNS_OBJECTOP_CANCEL_LIKE = 5;
+    MMSNS_OBJECTOP_DEL = 1;
+    MMSNS_OBJECTOP_DELETE_COMMENT = 4;
+    MMSNS_OBJECTOP_SET_OPEN = 3;
+    MMSNS_OBJECTOP_SET_PRIVACY = 2;
+}
+
+message SnsObjectOpResponse {
+    optional  BaseResponse BaseResponse = 1;
+    optional  uint32 opCount = 2;
+    repeated  int32 opRetList = 3;
+}
+
+message SnsCommentRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  SnsActionGroup  action  = 2;
+    optional  string  clientid  = 3;
+}
+
+message SnsActionGroup {
+    optional  uint64  Id  = 1;
+    optional  uint64  parentId  = 2;
+    optional  SnsAction  currentAction  = 3;
+    optional  SnsAction  referAction  = 4;
+    optional  string  clientId  = 5;
+    optional  int32  objectCreateTime  = 6;
+}
+
+message SnsAction {
+	optional    string  FromUsername = 1;
+	optional    string  ToUsername = 2;
+	optional    string  FromNickname = 3;
+	optional    string  ToNickname = 4;
+	optional    uint32  Type = 5;
+	optional    uint32  Source = 6;
+	optional    uint32  CreateTime = 7;
+	optional    string  Content = 8;
+	optional    int32   ReplyCommentId = 9;
+	optional    int32   CommentId = 10;
+	optional    uint32  IsNotRichText = 11;
+	optional    uint64  ReplyCommentId2 = 12;
+	optional    uint64  CommentId2 = 13;
+	optional    SKBuiltinBuffer_t  hbbuffer = 14;
+	optional    uint64  commentFla = 15;
+	optional    RemindFriendsInfo  remindFriendsInfo = 16;
+	optional    SnsEmojiInfo  snsEmojiInfo = 17;
+	optional    uint64  snsEmojiInfoCount = 18;
+}
+
+message SnsEmojiInfo {
+    optional    string  md5 = 1;
+    optional    SKBuiltinBuffer_t  emojiInfoBuf = 2;
+    optional    uint32  width = 3;
+    optional    uint32  height = 4;
+    optional    uint32  size = 5;
+ }
+
+message RemindFriendsInfo {
+    optional    uint64  adgroupId = 1;
+    optional    SKBuiltinBuffer_t  sourceInfo = 2;
+    optional    SKBuiltinBuffer_t  selfInfo = 3;
+    optional    SKBuiltinBuffer_t  paidInfo = 4;
+    optional    SKBuiltinBuffer_t  extraInfo = 5;
+    optional    uint64  adgroupId64 = 6;
+}
+
+message SnsCommentResponse {
+    optional  BaseResponse BaseResponse = 1;
+    optional  SnsObject snsObject = 2;
+}
+
+message SnsUploadRequest {
+	optional BaseRequest BaseRequest = 1;
+	optional uint32 Type = 2;
+	optional uint32 StartPos = 3;
+	optional uint32 TotalLen = 4;
+	optional SKBuiltinBuffer_t Buffer = 5;
+	optional string ClientId = 6;
+	optional uint32 FilterStype = 7;
+	optional uint32 SyncFlag = 8;
+	optional string Description = 9;
+	optional int32 PhotoFrom = 10;
+	optional int32 NetType = 11;
+	optional TwitterInfo TwitterInfo = 12;
+	optional string AppId = 13;
+	optional uint32 ExtFlag = 14;
+	optional string MD5 = 15;
+	optional int32 objectType = 16;
+}
+
+message SnsUploadResponse {
+	optional BaseResponse BaseResponse = 1;
+	optional uint32 StartPos = 2;
+	optional uint32 TotalLen = 3;
+	optional string ClientId = 4;
+	optional SnsBufferUrl BufferUrl = 5;
+	optional uint32 ThumbUrlCount = 6;
+	repeated SnsBufferUrl ThumbUrls = 7;
+	optional uint64 Id = 8;
+	optional uint32 Type = 9;
+}
+
+message SnsTimeLineRequest {
+	optional BaseRequest BaseRequest = 1;
+	optional string FirstPageMd5 = 2;
+	optional uint64 MaxId = 3;
+	optional uint64 MinFilterId = 4;
+	optional uint32 LastRequestTime = 5;
+	optional uint64 ClientLatestId = 6;
+	optional SKBuiltinBuffer_t Session = 7;
+	optional int32 networkType = 8;
+	optional SnsAdExpInfo adexpinfo = 9;
+	optional uint32 realFeedExposureIdsCount = 10;
+	repeated uint32 realFeedExposureIds = 11;
+	optional uint32 UpdateTimelineScene = 12;
+	optional uint32 pullType = 13;
+	optional uint64 minIdForGetPrePage = 14;
+	optional uint64 minIdForCheckUnread = 15;
+}
+
+message SnsTimeLineResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional string FirstPageMd5 = 2;
+    optional uint32 ObjectCount = 3;
+    repeated SnsObject ObjectList = 4;
+    optional uint32 NewRequestTime = 5;
+    optional uint32 ObjectCountForSameMd5 = 6;
+    optional uint32 ControlFlag = 7;
+    optional SnsServerConfig ServerConfig = 8;
+    optional uint32 AdvertiseCount = 9;
+    optional bytes AdvertiseList = 10;
+    optional SKBuiltinBuffer_t Session = 11;
+    optional uint32 RecCount = 12;
+    optional uint32 RecList = 13;
+}
+
+message SnsAdExpInfo {
+    optional uint64 hateFeedid = 1;
+    optional uint32 hateTimestamp = 2;
+}
+
+message SnsUserPageRequest {
+    optional BaseRequest BaseRequest = 1;
+    optional string FirstPageMd5 = 2;
+    optional string Username = 3;
+    optional uint64 MaxId = 4;
+    optional uint32 Source = 5;
+    optional uint64 MinFilterId = 6;
+    optional uint32 LastRequestTime = 7;
+    optional uint32 FilterType = 8;
+}
+
+message SnsUserPageResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional string FristPageMd5 = 2;
+    optional uint32 ObjectCount = 3;
+    repeated SnsObject ObjectList = 4;
+    repeated uint32 ObjectTotalCount = 5;
+    repeated SnsUserInfo SnsUserInfo = 6;
+    repeated uint32 NewRequestTime = 7;
+    repeated uint32 ObjectCountForSameMd5 = 8;
+    repeated SnsServerConfig ServerConfig = 9;
+    repeated uint64 LimitedId = 10;
+    repeated uint64 ContinueId = 11;
+    repeated string RetTips = 12;
+}
+
+//通讯录好友操作
+message InitContactRequest {
+    optional string Username = 1;
+    optional int32 CurrentWxcontactSeq = 2;
+    optional int32 CurrentChatRoomContactSeq = 3;
+}
+
+message InitContactResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional int32 CurrentWxcontactSeq = 2;
+    optional int32 CurrentChatRoomContactSeq = 3;
+    optional int32 CountinueFlag = 4;
+    repeated string ContactUsernameList = 5;
+}
+
+message ModContact {
+    optional  SKBuiltinString_t  UserName  = 1;
+    optional  SKBuiltinString_t  NickName  = 2;
+    optional  SKBuiltinString_t  PyInitial  = 3;
+    optional  SKBuiltinString_t  QuanPin  = 4;
+    optional  int32  Sex  = 5;
+    optional  SKBuiltinBuffer_t  ImgBuf  = 6;
+    optional  uint32  BitMask  = 7;
+    optional  uint32  BitVal  = 8;
+    optional  uint32  ImgFlag  = 9;
+    optional  SKBuiltinString_t  Remark  = 10;
+    optional  SKBuiltinString_t  RemarkPyinitial  = 11;
+    optional  SKBuiltinString_t  RemarkQuanPin  = 12;
+    optional  uint32  ContactType  = 13;
+    optional  uint32  RoomInfoCount  = 14;
+    repeated  RoomInfo  RoomInfoList  = 15;
+    repeated  SKBuiltinString_t  DomainList  = 16;
+    optional  uint32  ChatRoomNotify  = 17;
+    optional  uint32  AddContactScene  = 18;
+    optional  string  Province  = 19;
+    optional  string  City  = 20;
+    optional  string  Signature  = 21;
+    optional  uint32  PersonalCard  = 22;
+    optional  uint32  HasWeiXinHdHeadImg  = 23;
+    optional  uint32  VerifyFlag  = 24;
+    optional  string  VerifyInfo  = 25;
+    optional  int32  Level  = 26;
+    optional  uint32  Source  = 27;
+    optional  string  Weibo  = 28;
+    optional  string  VerifyContent  = 29;
+    optional  string  Alias  = 30;
+    optional  string  ChatRoomOwner  = 31;
+    optional  string  WeiboNickname  = 32;
+    optional  uint32  WeiboFlag  = 33;
+    optional  int32  AlbumStyle  = 34;
+    optional  int32  AlbumFlag  = 35;
+    optional  string  AlbumBGImgID  = 36;
+    optional  SnsUserInfo  SnsUserInfo  = 37;
+    optional  string  Country  = 38;
+    optional  string  BigHeadImgUrl  = 39;
+    optional  string  SmallHeadImgUrl  = 40;
+    optional  string  MyBrandList  = 41;
+    optional  CustomizedInfo  CustomizedInfo  = 42;
+    optional  string  ChatRoomData  = 43;
+    optional  string  HeadImgMd5  = 44;
+    optional  string  EncryptUserName  = 45;
+    optional  string  IdcardNum  = 46;
+    optional  string  RealName  = 47;
+    optional  string  MobileHash  = 48;
+    optional  string  MobileFullHash  = 49;
+    optional  AdditionalContactList  AdditionalContactList  = 50;
+    optional  uint32  ChatroomVersion  = 53;
+    optional  string  ExtInfo  = 54;
+    optional  uint32  ChatroomMaxCount  = 55;
+    optional  uint32  ChatroomAccessType  = 56;
+    optional  ChatRoomMemberData  NewChatroomData  = 57;
+    optional  int32  DeleteFlag  = 58;
+    optional  string  Description  = 59;
+    optional  string  CardImgUrl  = 60;
+    optional  string  LabelIdList  = 61;
+    optional  PhoneNumListInfo  PhoneNumListInfo  = 62;
+    optional  string  WeiDianInfo  = 63;
+    optional  int32  ChatroomInfoVersion  = 64;
+    optional  int32  DeletecontactScene  = 65;
+    optional  int32  ChatroomStatus  = 66;
+    optional  int32  Extflag  = 67;
+    optional  string  CourceExtInfo  = 68;
+    optional  uint32  ChatRoomBusinessType  = 69;
+
+}
+
+message RoomInfo {
+    optional  SKBuiltinString_t  UserName  = 1;
+    optional  SKBuiltinString_t  NickName  = 2;
+}
+
+message CustomizedInfo {
+    optional  uint32  BrandFlag  = 1;
+    optional  string  ExternalInfo  = 2;
+    optional  string  BrandInfo  = 3;
+    optional  string  BrandIconURL  = 4;
+}
+
+message AdditionalContactList {
+    optional  LinkedinContactItem  LinkedinContactItem  = 1;
+}
+
+message LinkedinContactItem {
+    optional  string  LinkedinName  = 1;
+    optional  string  LinkedinMemberId  = 2;
+    optional  string  LinkedinPublicUrl  = 3;
+}
+
+message ChatRoomMemberData {
+    optional  uint32  MemberCount  = 1;
+    repeated  ChatRoomMemberInfo  ChatRoomMember  = 2;
+    optional  uint32  InfoMask  = 3;
+}
+
+message ChatRoomMemberInfo {
+    optional  string  UserName  = 1;
+    optional  string  NickName  = 2;
+    optional  string  DisplayName  = 3;
+    optional  string  BigHeadImgUrl  = 4;
+    optional  string  SmallHeadImgUrl  = 5;
+    optional  uint32  ChatroomMemberFlag  = 6;
+    optional  string  InviterUserName  = 7;
+}
+
+message PhoneNumListInfo {
+    optional  uint32  Count  = 1;
+    repeated  uint32  PhoneNumList  = 2;
+}
+
+//发送图片
+message UploadMsgImgRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  SKBuiltinString_t  ClientImgId  = 2;
+    optional  SKBuiltinString_t  FromUserNam  = 3;
+    optional  SKBuiltinString_t  ToUserNam  = 4;
+    optional  uint32  TotalLen  = 5;
+    optional  uint32  StartPos  = 6;
+    optional  uint32  DataLen  = 7;
+    optional  SKBuiltinBuffer_t  Data  = 8;
+    optional  uint32  MsgType  = 9;
+    optional  string  MsgSource  = 10;
+    optional  uint32  CompressType  = 11;
+    optional  uint32  NetType  = 12;
+    optional  int32  PhotoFrom  = 13;
+    optional  uint32  UICreateTime  = 14;
+    optional  string  CDNBigImgUrl  = 15;
+    optional  string  CDNMidImgUrl  = 16;
+    optional  string  AESKey  = 17;
+    optional  int32  EncryVer  = 18;
+    optional  int32  CDNBigImgSize  = 19;
+    optional  int32  CDNMidImgSize  = 20;
+    optional  string  CDNThumbImgUrl  = 21;
+    optional  int32  CDNThumbImgSize  = 22;
+    optional  int32  CDNThumbImgHeight  = 23;
+    optional  int32  CDNThumbImgWidth  = 24;
+    optional  string  CDNThumbAESKey  = 25;
+    optional  uint32  ReqTime  = 26;
+    optional  string  Md5  = 27;
+    optional  uint32  Crc32  = 28;
+    optional  uint32  Msgforwardtype  = 29;
+    optional  uint32  HitMd5  = 30;
+    optional  string  Appid  = 31;
+    optional  string  MessageAction  = 32;
+    optional  string  MessageExt  = 33;
+    optional  string  MediaTagName  = 34;
+}
+
+message UploadMsgImgResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional uint32 Msgid = 2;
+    optional SKBuiltinString_t ClientImgId = 3;
+    optional SKBuiltinString_t FromUserName = 4;
+    optional SKBuiltinString_t ToUserName = 5;
+    optional uint32 TotalLen = 6;
+    optional uint32 StartPos = 7;
+    optional uint32 DataLen = 8;
+    optional uint32 CreateTime = 9;
+    optional uint64 Newmsgid = 10;
+    optional string Aeskey = 11;
+    optional string Fileid = 12;
+    optional string MsgSource = 13;
+}
+
+//同步消息类型cmdid
+enum SyncCmdID {
+    CmdInvalid = 0;
+    CmdIdModUserInfo = 1;
+    CmdIdModContact = 2;
+    CmdIdDelContact = 4;
+    CmdIdAddMsg = 5;
+    CmdIdModMsgStatus = 6;
+    CmdIdDelChatContact = 7;
+    CmdIdDelContactMsg = 8;
+    CmdIdReport = 10;
+    CmdIdOpenQQMicroBlog = 11;
+    CmdIdCloseMicroBlog = 12;
+    CmdIdModMicroBlog = 13;
+    CmdIdModNotifyStatus = 14;
+    CmdIdModChatRoomMember = 15;
+    CmdIdQuitChatRoom = 16;
+    CmdIdModContactDomainEmail = 17;
+    CmdIdModUserDomainEmail = 18;
+    CmdIdDelUserDomainEmail = 19;
+    CmdIdModChatRoomNotify = 20;
+    CmdIdPossibleFriend = 21;
+    CmdIdInviteFriendOpen = 22;
+    CmdIdFunctionSwitch = 23;
+    CmdIdModQContact = 24;
+    CmdIdPsmStat = 26;
+    CmdIdModChatRoomTopic = 27;
+    MM_SYNCCMD_UPDATESTAT = 30;
+    MM_SYNCCMD_MODDISTURBSETTING = 31;
+    MM_SYNCCMD_DELETEBOTTLE = 32;
+    MM_SYNCCMD_MODBOTTLECONTACT = 33;
+    MM_SYNCCMD_DELBOTTLECONTACT = 34;
+    MM_SYNCCMD_MODUSERIMG = 35;
+    MM_SYNCCMD_KVSTAT = 36;
+    NN_SYNCCMD_THEMESTAT = 37;
+    MM_SYNCCMD_USERINFOEXT = 44;
+    MM_SNS_SYNCCMD_OBJECT = 45;
+    MM_SNS_SYNCCMD_ACTION = 46;
+    MM_SYNCCMD_BRAND_SETTING = 47;
+    MM_SYNCCMD_MODCHATROOMMEMBERDISPLAYNAME = 48;
+    MM_SYNCCMD_WEBWXFUNCTIONSWITCH = 50;
+    MM_SYNCCMD_MODSNSUSERINFO = 51;
+    MM_SYNCCMD_MODSNSBLACKLIST = 52;
+    MM_SYNCCMD_NEWDELMSG = 53;
+    MM_SYNCCMD_MODDESCRIPTION = 54;
+    MM_SYNCCMD_KVCMD = 55;
+    MM_SYNCCMD_DELETE_SNS_OLDGROUP = 56;
+    MM_FAV_SYNCCMD_ADDITEM = 200;
+    CmdIdMax = 201;
+    CmdIdDelMsg = 10002;
+    CmdIdModTContact = 10003;
+    MM_GAME_SYNCCMD_ADDMSG = 10004;
+    MM_SYNCCMD_MODCHATROOMMEMBERFLAG = 10005;
+}
+
+message DisturbTimeSpan {
+    optional uint32 BeginTime   =   1;
+    optional uint32 EndTime     =   2;
+}
+
+message DisturbSetting {
+    optional uint32 NightSetting    =   1;
+    optional DisturbTimeSpan    NightTime   =   2;
+    optional uint32 AllDaySetting   =   3;
+    optional DisturbTimeSpan    AllDayTim   =   4;
+}
+
+message GmailInfo {
+    optional    string  GmailAcct   =   1;
+    optional    uint32  GmailSwitch   =   2;
+    optional    uint32  GmailErrCode   =   3;
+}
+
+message GmailList {
+    optional uint32 Count   =   1;
+    repeated GmailInfo List    =   2;
+}
+
+message ModUserInfo {
+    optional  uint32    BitFlag   =   1;
+    optional  SKBuiltinString_t UserName  =   2;
+    optional  SKBuiltinString_t NickName  =   3;
+    optional  uint32    BindUin   =   4;
+    optional  SKBuiltinString_t BindEmail =   5;
+    optional  SKBuiltinString_t BindMobile    =   6;
+    optional  uint32    Status    =   7;
+    optional  uint32    ImgLen    =   8;
+    optional  bytes     ImgBuf    =   9;
+    optional  int32     Sex       =   10;
+    optional  string    Province  =   11;
+    optional  string    City      =   12;
+    optional  string    Signature =   13;
+    optional  uint32    PersonalCard  =   14;
+    optional  DisturbSetting    DisturbSetting    =   15;
+    optional  uint32    PluginFlag    =   16;
+    optional  uint32    VerifyFlag    =   17;
+    optional  string    VerifyInfo    =   18;
+    optional  uint32    Point         =   19;
+    optional  uint32    Experience    =   20;
+    optional  uint32    Level         =   21;
+    optional  uint32    LevelLowExp   =   22;
+    optional  uint32    LevelHighExp  =   23;
+    optional  string    Weibo         =   24;
+    optional  uint32    PluginSwitch  =   25;
+    optional  GmailList GmailList     =   26;
+    optional  string    Alias         =   27;
+    optional  string    WeiboNickname =   28;
+    optional  uint32    WeiboFlag     =   29;
+    optional  uint32    FaceBookFlag  =   30;
+    optional  uint64    FbuserId      =   31;
+    optional  string    FbuserName    =   32;
+    optional  int32     AlbumStyle    =   33;
+    optional  int32     AlbumFlag     =   34;
+    optional  string    AlbumBgimgId  =   35;
+    optional  uint32    TxnewsCategory    =   36;
+    optional  string    Fbtoken       =   37;
+    optional  string    Country       =   38;
+}
+
+message ModContacts {
+    optional  SKBuiltinString_t UserName  =   1;
+    optional  SKBuiltinString_t NickName  =   2;
+    optional  SKBuiltinString_t Pyinitial =   3;
+    optional  SKBuiltinString_t QuanPin   =   4;
+    optional  int32 Sex       =   5;
+    optional  SKBuiltinBuffer_t ImgBuf    =   6;
+    optional  uint32    BitMask   =   7;
+    optional  uint32    BitVal    =   8;
+    optional  uint32    ImgFlag   =   9;
+    optional  SKBuiltinString_t Remark    =   10;
+    optional  SKBuiltinString_t RemarkPyinitial   =   11;
+    optional  SKBuiltinString_t RemarkQuanPin     =   12;
+    optional  uint32    ContactType       =   13;
+    optional  uint32    RoomInfoCount     =   14;
+    repeated  RoomInfo  RoomInfoList      =   15;
+    optional  SKBuiltinString_t DomainList        =   16;
+    optional  uint32    ChatRoomNotify    =   17;
+    optional  uint32    AddContactScene   =   18;
+    optional  string    Province          =   19;
+    optional  string    City              =   20;
+    optional  string    Signature         =   21;
+    optional  uint32    PersonalCard      =   22;
+    optional  uint32    HasWeiXinHdHeadImg    =   23;
+    optional  uint32    VerifyFlag        =   24;
+    optional  string    VerifyInfo        =   25;
+    optional  int32     Level             =   26;
+    optional  uint32    Source            =   27;
+    optional  string    Weibo             =   28;
+    optional  string    VerifyContent     =   29;
+    optional  string    Alias             =   30;
+    optional  string    ChatRoomOwner     =   31;
+    optional  string    WeiboNickname     =   32;
+    optional  uint32    WeiboFlag         =   33;
+    optional  int32     AlbumStyle        =   34;
+    optional  int32     AlbumFlag         =   35;
+    optional  string    AlbumBgimgId      =   36;
+    optional  SnsUserInfo   SnsUserInfo       =   37;
+    optional  string    Country           =   38;
+    optional  string    BigHeadImgUrl     =   39;
+    optional  string    SmallHeadImgUrl   =   40;
+    optional  string    MyBrandList       =   41;
+    optional  CustomizedInfo    CustomizedInfo    =   42;
+    optional  string    ChatRoomData      =   43;
+    optional  string    HeadImgMd5        =   44;
+    optional  string    EncryptUserName   =   45;
+    optional  string    IdcardNum         =   46;
+    optional  string    RealName          =   47;
+    optional  string    MobileHash        =   48;
+    optional  string    MobileFullHash    =   49;
+    optional  AdditionalContactList AdditionalContactList =   50;
+    optional  uint32    ChatroomVersion   =   51;
+    optional  string    ExtInfo           =   52;
+    optional  uint32    ChatroomMaxCount  =   53;
+    optional  uint32    ChatroomAccessType    =   54;
+    optional  ChatRoomMemberData    NewChatroomData   =   55;
+    optional  int32     DeleteFlag        =   56;
+    optional  string    Description       =   57;
+    optional  string    CardImgUrl        =   58;
+    optional  string    LabelIdlist       =   59;
+    optional  PhoneNumListInfo  PhoneNumListInfo  =   60;
+    optional  string    WeiDianInfo       =   61;
+    optional  uint32    ChatroomInfoVersion   =   62;
+    optional  uint32    DeleteContactScene    =   63;
+    optional  uint32    ChatroomStatus        =   64;
+    optional  uint32    ExtFlag           =   65;
+    optional  string    SourceExtInfo     =   66;
+}
+
+message DelContact {
+    optional  SKBuiltinString_t    UserName      =   1;
+    optional  uint32    DeleteContactScene      =   2;
+}
+
+message AddMsg {
+    optional  int32    MsgId      =   1;
+    optional  SKBuiltinString_t    FromUserName      =   2;
+    optional  SKBuiltinString_t    ToUserName      =   3;
+    optional  int32    MsgType      =   4;
+    optional  SKBuiltinString_t    Content      =   5;
+    optional  uint32    Status      =   6;
+    optional  uint32    ImgStatus      =   7;
+    optional  SKBuiltinBuffer_t    ImgBuf      =   8;
+    optional  uint32    CreateTime      =   9;
+    optional  string    MsgSource      =   10;
+    optional  string    PushContent      =   11;
+    optional  int64     NewMsgId      =   12;
+    optional  uint32    MsgSeq      =   13;
+}
+
+message ModMsgStatus {
+    optional  int32    MsgId      =   1;
+    optional  SKBuiltinString_t    FromUserName      =   2;
+    optional  SKBuiltinString_t    ToUserName      =   3;
+    optional  int32    Status      =   4;
+    optional  int64    NewMsgId      =   5;
+}
+
+message DelChatContact {
+    optional  SKBuiltinString_t    UserName      =   1;
+}
+
+message DelContactMsg {
+    optional  SKBuiltinString_t    UserName      =   1;
+    optional  int32    MaxMsgId      =   2;
+    optional  int64    NewMsgId      =   3;
+}
+
+message NewDelMsg {
+    optional  SKBuiltinString_t    FromUserName      =   1;
+    optional  SKBuiltinString_t    ToUserName      =   2;
+    optional  uint64    msgId      =   3;
+    optional  uint32    msgType      =   4;
+    optional  uint64    newMsgId      =   5;
+}
+
+message ModUserImg {
+    optional  uint32    ImgType   =   1;
+    optional  uint32    ImgLen    =   2;
+    optional  bytes     ImgBuf    =   3;
+    optional  string    ImgMd5    =   4;
+    optional  string    BigHeadImgUrl =   5;
+    optional  string    SmallHeadImgUrl   =   6;
+}
+
+message SafeDevice {
+    optional  string    Uuid   =   1;
+    optional  string    Name   =   2;
+    optional  string    DeviceType   =   3;
+    optional  uint32    CreateTime   =   4;
+}
+
+message SafeDeviceList {
+    optional  int32    Count    =   1;
+    repeated  SafeDevice    List    =   2;
+}
+
+message PatternLockInfo {
+    optional  uint32    PatternVersion    =   1;
+    optional  SKBuiltinBuffer_t    Sign    =   2;
+    optional  uint32    LockStatus    =   3;
+}
+
+message UserInfoExt {
+    optional  SnsUserInfo   SnsUserInfo   =   1;
+    optional  string    MyBrandList   =   2;
+    optional  string    MsgPushSound  =   3;
+    optional  string    VoipPushSound =   4;
+    optional  uint32    BigChatRoomSize   =   5;
+    optional  uint32    BigChatRoomQuota  =   6;
+    optional  uint32    BigChatRoomInvite =   7;
+    optional  string    SafeMobile    =   8;
+    optional  string    BigHeadImgUrl =   9;
+    optional  string    SmallHeadImgUrl   =   10;
+    optional  uint32    MainAcctType  =   11;
+    optional  SKBuiltinString_t ExtXml        =   12;
+    optional  SafeDeviceList    SafeDeviceList    =   13;
+    optional  uint32    SafeDevice    =   14;
+    optional  uint32    GrayscaleFlag =   15;
+    optional  string    GoogleContactName =   16;
+    optional  string    IdcardNum     =   17;
+    optional  string    RealName      =   18;
+    optional  string    RegCountry    =   19;
+    optional  string    Bbppid        =   20;
+    optional  string    Bbpin         =   21;
+    optional  string    BbmnickName   =   22;
+    optional  LinkedinContactItem   LinkedinContactItem   =   23;
+    optional  string    Kfinfo        =   24;
+    optional  PatternLockInfo   PatternLockInfo   =   25;
+    optional  string    SecurityDeviceId  =   26;
+    optional  uint32    PayWalletType     =   27;
+    optional  string    WeiDianInfo       =   28;
+    optional  uint32    WalletRegion      =   29;
+    optional  uint64    ExtStatus         =   30;
+    optional  string    F2FpushSound      =   31;
+    optional  uint32    UserStatus        =   32;
+    optional  uint64    PaySetting        =   33;
+}
+
+message FunctionSwitch {
+
+    optional  uint32   FunctionId   =   1;
+    optional  uint32   SwitchValue   =   2;
+}
+
+//心跳
+message HeartBeatRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  uint32  TimeStamp  = 2;
+    optional  SKBuiltinBuffer_t  KeyBuf  = 3;
+    optional  SKBuiltinBuffer_t  BlueToothBroadCastContent  = 4;
+    optional  uint32  Scene  = 5;
+}
+
+message HeartBeatResponse {
+    optional  BaseResponse BaseResponse = 1;
+    optional  uint32  NextTime  = 2;
+    optional  uint32  Selector  = 3;
+    optional  SKBuiltinBuffer_t  BlueToothBroadCastContent  = 4;
+}
+
+//退出
+message LogOutRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  uint32  Scene  = 2;
+}
+
+message LogOutResponse {
+    optional  BaseResponse BaseResponse = 1;
+    optional  string    noPwdLoginTicket      =   2;
+}
+
+//收藏
+message FavSyncRequest {
+    optional  uint32  Selector  = 1;
+    optional  SKBuiltinBuffer_t  KeyBuf  = 3;
+}
+
+message FavSyncResponse {
+    optional  int32 Ret = 1;
+    optional  CmdList CmdList = 2;
+    optional  SKBuiltinBuffer_t KeyBuf = 3;
+    optional  uint32 ContinueFlag = 4;
+}
+
+message AddFavItem {
+    optional  int32     FavId   = 1;
+    optional  int32     Type    = 2;
+    optional  uint32    Flag    = 3;
+    optional  uint32    UpdateTime    = 4;
+    optional  uint32    UpdateSeq    = 5;
+}
+
+message BatchGetFavItemRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  int32  Count  = 2;
+    repeated  int32  FavIdList  = 3[packed=true];
+}
+
+message BatchGetFavItemResponse {
+    optional  BaseResponse BaseResponse = 1;
+    optional  uint32  Count  = 2;
+    repeated  FavObject  ObjectList  = 3;
+}
+
+message FavObject {
+    optional  uint32     FavId   = 1;
+    optional  int32     Status   = 2;
+    optional  string     Object   = 3;
+    optional  uint32     Flag   = 4;
+    optional  uint32     UpdateTime  = 5;
+    optional  uint32     UpdateSeq   = 6;
+}
+
+message BatchDelFavItemRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  int32  Count  = 2;
+    repeated  int32  FavIdList  = 3[packed=true];
+}
+
+message BatchDelFavItemResponse {
+    optional  BaseResponse BaseResponse = 1;
+    optional  uint32  Count  = 2;
+    repeated  DelFavItemRsp  List  = 3;
+}
+
+message DelFavItemRsp {
+    optional  int32     Ret     =   1;
+    optional  uint32     FavId     =   2;
+}
+
+//搜索好友
+message SearchContactRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  SKBuiltinString_t  UserName  = 2;
+    optional  uint32  OpCode  = 3;
+    optional  SKBuiltinBuffer_t  ReqBuf  = 4;
+    optional  uint32  FromScene  = 5;
+    optional  uint32  SearchScene  = 6;
+}
+
+message SearchContactResponse {
+    optional  BaseResponse BaseResponse = 1;
+    optional  SKBuiltinString_t  UserName  = 2;
+    optional  SKBuiltinString_t  NickName  = 3;
+    optional  SKBuiltinString_t  Pyinitial  = 4;
+    optional  SKBuiltinString_t  QuanPin  = 5;
+    optional  int32  Sex  = 6;
+    optional  SKBuiltinBuffer_t  ImgBuf  = 7;
+    optional  string  Province  = 8;
+    optional  string  City = 9;
+    optional  string  Signature = 10;
+    optional  uint32  PersonalCard = 11;
+    optional  int32  VerifyFlag = 12;
+    optional  string  VerifyInfo = 13;
+    optional  string  Weibo = 14;
+    optional  string  Alias = 15;
+    optional  string  WeiboNickname = 16;
+    optional  int32  WeiboFlag = 17;
+    optional  int32  AlbumStyle = 18;
+    optional  int32  AlbumFlag = 19;
+    optional  string  AlbumBgimgId = 20;
+    optional  SnsUserInfo  SnsUserInfo = 21;
+    optional  string  Country = 22;
+    optional  string  MyBrandList = 23;
+    optional  CustomizedInfo  CustomizedInfo = 24;
+    optional  uint32  ContactCount = 25;
+    repeated  SearchContactItem  Contactlist = 26;
+    optional  string  BigHeadImgUrl = 27;
+    optional  string  SmallHeadImgUrl = 28;
+    optional  SKBuiltinBuffer_t  ResBuf = 29;
+    optional  string  AntispamTicket = 30;
+    optional  string  KfworkerId = 31;
+    optional  uint32  MatchType = 32;
+    optional  string  PopupInfoMsg = 33;
+    optional  uint32  OpenImcontactCount = 34;
+    repeated  OpenIMContact  OpenImcontactList = 35;
+}
+
+message SearchContactItem {
+    optional  SKBuiltinString_t  UserName  = 1;
+    optional  SKBuiltinString_t  NickName  = 2;
+    optional  SKBuiltinString_t  Pyinitial  = 3;
+    optional  SKBuiltinString_t  QuanPin  = 4;
+    optional  int32  sex  = 5;
+    optional  SKBuiltinBuffer_t  imgBuf  = 6;
+    optional  string  province  = 7;
+    optional  string  city  = 8;
+    optional  string  signature  = 9;
+    optional  uint32  personalCard  = 10;
+    optional  uint32  verifyFlag  = 11;
+    optional  string  verifyInfo  = 12;
+    optional  string  weibo  = 13;
+    optional  string  alias  = 14;
+    optional  string  weiboNickname  = 15;
+    optional  uint32  weiboFlag  = 16;
+    optional  int32  albumStyle  = 17;
+    optional  int32  albumFlag  = 18;
+    optional  string  albumBgimgId  = 19;
+    optional  SnsUserInfo  snsUserInfo  = 20;
+    optional  string  country  = 21;
+    optional  string  myBrandList  = 22;
+    optional  CustomizedInfo  customizedInfo  = 23;
+    optional  string  bigHeadImgUrl  = 24;
+    optional  string  smallHeadImgUrl  = 25;
+    optional  string  antispamTicket  = 26;
+    optional  uint32  matchType  = 27;
+}
+
+message OpenIMContact {
+    optional  string  tpUserName = 1;
+    optional  string  nickname = 2;
+    optional  uint32  type = 3;
+    optional  string  remark = 4;
+    optional  string  bigHeadimg = 5;
+    optional  string  smallHeadimg = 6;
+    optional  uint32  source = 7;
+    optional  string  nicknamePyinit = 8;
+    optional  string  nicknameQuanpin = 9;
+    optional  string  remarkPyinit = 10;
+    optional  string  remarkQuanpin = 11;
+    optional  OpenIMContactCustomInfo  customInfo = 12;
+    optional  string  antispamTicket = 13;
+    optional  string  appId = 14;
+    optional  uint32  sex = 15;
+    optional  string  descWordingId = 16;
+}
+
+message OpenIMContactCustomInfo {
+    optional  uint32  detailVisible = 1;
+    optional  string  tdetail = 2;
+}
+
+//上传通讯录
+message UploadMContactRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  string  userName  = 2;
+    optional  int32  opcode  = 3;
+    optional  string  mobile  = 4;
+    optional  int32  mobileListSize  = 5;
+    repeated  SKBuiltinString_t  mobileList  = 6;
+    optional  int32  emailListSize  = 7;
+    repeated  SKBuiltinString_t  emailList  = 8;
+}
+
+message UploadMContactResponse {
+    optional  BaseResponse BaseResponse = 1;
+}
+
+//V1 V2操作
+message VerifyUserRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  int32  Opcode  = 2;
+    optional  uint32  VerifyUserListSize  = 3;
+    repeated  VerifyUser  VerifyUserList  = 4;
+    optional  string  VerifyContent  = 5;
+    optional  uint32  SceneListCount  = 6;
+    optional  bytes  SceneList  = 7;
+    optional  uint32  VerifyInfoListCount  = 8;
+    repeated  SKBuiltinBuffer_t  VerifyInfoList  = 9;
+    optional  SKBuiltinBuffer_t  ClientCheckData  = 10;
+    optional  SKBuiltinBuffer_t  extSpamInfo  = 11;
+    optional  uint32  needConfirm  = 12;
+}
+
+message VerifyUser {
+    optional  string Value  = 1;
+    optional  string VerifyUserTicket  = 2;
+    optional  string AntispamTicket  = 3;
+    optional  uint32 FriendFlag  = 4;
+    optional  string ChatRoomUserName  = 5;
+    optional  string SourceUserName  = 6;
+    optional  string SourceNickName  = 7;
+    optional  uint32 ScanQrcodeFromScene  = 8;
+    optional  string ReportInfo  = 9;
+    optional  uint32 ShareCardForwardLevel  = 10;
+    optional  SKBuiltinBuffer_t ShareCardForwardInfo  = 11;
+    optional  string OuterUrl  = 12;
+    optional  int32 SubScene  = 13;
+    optional  SKBuiltinBuffer_t bizReportInfo  = 14;
+}
+
+message VerifyUserResponse {
+    optional  BaseResponse  BaseResponse = 1;
+    optional  string    Username = 2;
+}
+
+//标签
+message GetContactLabelListRequest {
+    optional  BaseRequest  baseRequest  = 1;
+}
+
+message GetContactLabelListResponse {
+    optional  BaseResponse  BaseResponse = 1;
+    optional  uint32  labelCount = 2;
+    repeated  LabelPair  labelPairList = 3;
+}
+
+message LabelPair {
+    optional  string  labelName = 1;
+    optional  uint32  labelID = 2;
+}
+
+message AddContactLabelRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  uint32  LabelCount  = 2;
+    repeated  LabelPair  LabelPairList  = 3;
+}
+
+message AddContactLabelResponse {
+    optional  BaseResponse  BaseResponse = 1;
+    optional  uint32  LabelCount = 2;
+    optional  LabelPair  LabelPairList = 3;
+}
+
+message ModifyContactLabelListRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  uint32  UserCount  = 2;
+    repeated  UserLabelInfo  UserLabelInfoList  = 3;
+}
+
+message ModifyContactLabelListResponse {
+    optional  BaseResponse  BaseResponse = 1;
+}
+
+message UserLabelInfo {
+    optional  string  UserName = 1;
+    optional  string  LabelIDList = 2;
+}
+
+message DelContactLabelRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  string  LabelIDList  = 2;
+}
+
+message DelContactLabelResponse {
+    optional  BaseResponse  BaseResponse = 1;
+}
+
+message UpdateContactLabelRequest {
+    optional  BaseRequest  baseRequest  = 1;
+    optional  LabelPair  LabelPairList = 2;
+}
+
+message UpdateContactLabelResponse {
+    optional  BaseResponse  BaseResponse = 1;
+}
+
+//OpLog
+message OpLogRequest {
+    optional  CmdList  cmd = 1;
+}
+
+message OplogResponse {
+    optional  int32  ret = 1;
+    optional  OplogRet  oplogRet = 2;
+}
+
+message OplogRet {
+    optional  uint32  count = 1;
+    optional  bytes  ret = 2;
+    optional  bytes  errMsg = 3;
+}
+
+message SnsObjectDetailRequest {
+    optional  BaseRequest baseRequest = 1;
+    optional  uint64 id = 2;
+    optional  uint32 groupDetail = 3;
+}
+
+message SnsObjectDetailResponse {
+    optional  BaseResponse baseResponse = 1;
+    optional  SnsObject object = 2;
+}
+
+//安卓
+message TrustDeviceInfo{
+    required string Key=1;
+    required string val=2;
+}
+
+message TrustData {
+    repeated TrustDeviceInfo tdi=1;
+}
+
+message TrustReq{
+    required TrustData td =1;
+    optional string md=2;
+}
+
+message TrustSoftData{
+    required bytes softConfig=1;
+    required bytes softData=2;
+}
+
+message TrustResponseData{
+    required TrustSoftData softData=2;
+    required string deviceToken=3;
+    required uint32 timeStamp=4;
+}
+
+message TrustResponse{
+    required BaseResponse BaseResponse = 1;
+    required TrustResponseData TrustResponseData = 2;
+}
+
+message FPFresh {
+    optional  BaseRequest baseRequest = 1;
+    optional  bytes SessKey = 2;
+    optional  ZTData Ztdata = 3;
+}
+
+message ZTData {
+    optional  string    Version = 1;
+    optional  uint32    Encrypted = 2;
+    optional  bytes     Data = 3;
+    optional  uint32    TimeStamp = 4;
+    optional  uint32    Optype = 5;
+    optional  uint32    Uin = 6;
+}
+
+message SaeInfo {
+    optional  string    Ver = 1;
+    optional  bytes     InitKey = 2;
+    optional  int32     TotalSize = 3;
+    optional  bytes     XorKey1 = 9;
+    optional  bytes     Key1 = 10;
+    optional  bytes     XorKey2 = 11;
+    optional  bytes     Key2 = 12;
+    optional  bytes     Key3 = 18;
+}
+
+//错误信息
+enum RetConst {
+    ERR_SERVER_FILE_EXPIRED = -5103059;
+    MM_ERR_FORCE_QUIT = -999999;
+    MM_ERR_CLIENT = -800000;
+    MM_ERR_CHATROOM_PARTIAL_INVITE = -2013;
+    MM_ERR_CHATROOM_NEED_INVITE = -2012;
+    MM_ERR_CONNECT_INFO_URL_INVALID = -2011;
+    MM_ERR_CLIDB_ENCRYPT_KEYINFO_INVALID = -2010;
+    MM_ERR_LOGIN_URL_DEVICE_UNSAFE = -2009;
+    MM_ERR_COOKIE_KICK = -2008;
+    MM_ERR_LOGIN_QRCODE_UUID_EXPIRED = -2007;
+    MM_ERR_KEYBUF_INVALID = -2006;
+    MM_ERR_FORCE_REDIRECT = -2005;
+    MM_ERR_QRCODEVERIFY_BANBYEXPOSE = -2004;
+    MM_ERR_SHAKEBANBYEXPOSE = -2003;
+    MM_ERR_BOTTLEBANBYEXPOSE = -2002;
+    MM_ERR_LBSBANBYEXPOSE = -2001;
+    MM_ERR_LBSDATANOTFOUND = -2000;
+    MM_ERR_IMG_READ = -1005;
+    MM_ERR_FACING_CREATECHATROOM_RETRY = -432;
+    MM_ERR_RADAR_PASSWORD_SIMPLE = -431;
+    MM_ERR_REVOKEMSG_TIMEOUT = -430;
+    MM_ERR_FAV_ALREADY = -400;
+    MM_ERR_FILE_EXPIRED = -352;
+    MM_ERR_USER_NOT_VERIFYUSER = -302;
+    MM_ERR_IDC_REDIRECT = -301;
+    MM_ERR_REG_BUT_LOGIN = -212;
+    MM_ERR_UNBIND_MAIN_ACCT = -206;
+    MM_ERR_QQ_OK_NEED_MOBILE = -205;
+    MM_ERR_OTHER_MAIN_ACCT = -204;
+    MM_ERR_NODATA = -203;
+    MM_ERR_UNBIND_MOBILE_NEED_QQPWD = -202;
+    MM_ERR_QQ_BAN = -201;
+    MM_ERR_ACCOUNT_BAN = -200;
+    MM_ERR_QA_RELATION = -153;
+    MM_ERR_NO_QUESTION = -152;
+    MM_ERR_QUESTION_COUNT = -151;
+    MM_ERR_ANSWER_COUNT = -150;
+    MM_ERR_EMAIL_FORMAT = -111;
+    MM_ERR_BLOCK_BY_SPAM = -106;
+    MM_ERR_CERT_EXPIRED = -102;
+    MM_ERR_NO_RETRY = -101;
+    MM_ERR_AUTH_ANOTHERPLACE = -100;
+    MM_ERR_USER_NOT_SUPPORT = -94;
+    MM_ERR_SHAKE_TRAN_IMG_OTHER = -93;
+    MM_ERR_SHAKE_TRAN_IMG_CONTINUE = -92;
+    MM_ERR_SHAKE_TRAN_IMG_NOTFOUND = -91;
+    MM_ERR_SHAKE_TRAN_IMG_CANCEL = -90;
+    MM_ERR_BIZ_FANS_LIMITED = -87;
+    MM_ERR_BIND_EMAIL_SAME_AS_QMAIL = -86;
+    MM_ERR_BINDED_BY_OTHER = -85;
+    MM_ERR_HAS_BINDED = -84;
+    MM_ERR_HAS_UNBINDED = -83;
+    MM_ERR_ONE_BINDTYPE_LEFT = -82;
+    MM_ERR_NOTBINDQQ = -81;
+    MM_ERR_WEIBO_PUSH_TRANS = -80;
+    MM_ERR_NEW_USER = -79;
+    MM_ERR_SVR_MOBILE_FORMAT = -78;
+    MM_ERR_WRONG_SESSION_KEY = -77;
+    MM_ERR_UUID_BINDED = -76;
+    MM_ERR_ALPHA_FORBIDDEN = -75;
+    MM_ERR_MOBILE_NEEDADJUST = -74;
+    MM_ERR_TRYQQPWD = -73;
+    MM_ERR_NICEQQ_EXPIRED = -72;
+    MM_ERR_TOLIST_LIMITED = -71;
+    MM_ERR_GETMFRIEND_NOT_READY = -70;
+    MM_ERR_BIGBIZ_AUTH = -69;
+    MM_FACEBOOK_ACCESSTOKEN_UNVALID = -68;
+    MM_ERR_HAVE_BIND_FACEBOOK = -67;
+    MM_ERR_IS_NOT_OWNER = -66;
+    MM_ERR_UNBIND_REGBYMOBILE = -65;
+    MM_ERR_PARSE_MAIL = -64;
+    MM_ERR_GMAIL_IMAP = -63;
+    MM_ERR_GMAIL_WEBLOGIN = -62;
+    MM_ERR_GMAIL_ONLINELIMITE = -61;
+    MM_ERR_GMAIL_PWD = -60;
+    MM_ERR_UNSUPPORT_COUNTRY = -59;
+    MM_ERR_PICKBOTTLE_NOBOTTLE = -58;
+    MM_ERR_SEND_VERIFYCODE = -57;
+    MM_ERR_NO_BOTTLECOUNT = -56;
+    MM_ERR_NO_HDHEADIMG = -55;
+    MM_ERR_INVALID_HDHEADIMG_REQ_TOTAL_LEN = -54;
+    MM_ERR_HAS_NO_HEADIMG = -53;
+    MM_ERR_INVALID_GROUPCARD_CONTACT = -52;
+    MM_ERR_VERIFYCODE_NOTEXIST = -51;
+    MM_ERR_BINDUIN_BINDED = -50;
+    MM_ERR_NEED_QQPWD = -49;
+    MM_ERR_TICKET_NOTFOUND = -48;
+    MM_ERR_TICKET_UNMATCH = -47;
+    MM_ERR_NOTQQCONTACT = -46;
+    MM_ERR_BATCHGETCONTACTPROFILE_MODE = -45;
+    MM_ERR_NEED_VERIFY_USER = -44;
+    MM_ERR_USER_BIND_MOBILE = -43;
+    MM_ERR_USER_MOBILE_UNMATCH = -42;
+    MM_ERR_MOBILE_FORMAT = -41;
+    MM_ERR_UNMATCH_MOBILE = -40;
+    MM_ERR_MOBILE_NULL = -39;
+    MM_ERR_INVALID_UPLOADMCONTACT_OPMODE = -38;
+    MM_ERR_INVALID_BIND_OPMODE = -37;
+    MM_ERR_MOBILE_UNBINDED = -36;
+    MM_ERR_MOBILE_BINDED = -35;
+    MM_ERR_FREQ_LIMITED = -34;
+    MM_ERR_VERIFYCODE_TIMEOUT = -33;
+    MM_ERR_VERIFYCODE_UNMATCH = -32;
+    MM_ERR_NEEDSECONDPWD = -31;
+    MM_ERR_NEEDREG = -30;
+    MM_ERR_OIDBTIMEOUT = -29;
+    MM_ERR_BADEMAIL = -28;
+    MM_ERR_DOMAINDISABLE = -27;
+    MM_ERR_DOMAINMAXLIMITED = -26;
+    MM_ERR_DOMAINVERIFIED = -25;
+    MM_ERR_SPAM = -24;
+    MM_ERR_MEMBER_TOOMUCH = -23;
+    MM_ERR_BLACKLIST = -22;
+    MM_ERR_NOTCHATROOMCONTACT = -21;
+    MM_ERR_NOTMICROBLOGCONTACT = -20;
+    MM_ERR_NOTOPENPRIVATEMSG = -19;
+    MM_ERR_NOUPDATEINFO = -18;
+    MM_ERR_RECOMMENDEDUPDATE = -17;
+    MM_ERR_CRITICALUPDATE = -16;
+    MM_ERR_NICKNAMEINVALID = -15;
+    MM_ERR_USERNAMEINVALID = -14;
+    MM_ERR_SESSIONTIMEOUT = -13;
+    MM_ERR_UINEXIST = -12;
+    MM_ERR_NICKRESERVED = -11;
+    MM_ERR_USERRESERVED = -10;
+    MM_ERR_EMAILNOTVERIFY = -9;
+    MM_ERR_EMAILEXIST = -8;
+    MM_ERR_USEREXIST = -7;
+    MM_ERR_NEED_VERIFY = -6;
+    MM_ERR_ACCESS_DENIED = -5;
+    MM_ERR_NOUSER = -4;
+    MM_ERR_PASSWORD = -3;
+    MM_ERR_ARG = -2;
+    MM_ERR_SYS = -1;
+    MM_OK = 0;
+    MM_BOTTLE_ERR_UNKNOWNTYPE = 15;
+    MM_BOTTLE_COUNT_ERR = 16;
+    MM_BOTTLE_NOTEXIT = 17;
+    MM_BOTTLE_UINNOTMATCH = 18;
+    MM_BOTTLE_PICKCOUNTINVALID = 19;
+    MMSNS_RET_SPAM = 201;
+    MMSNS_RET_BAN = 202;
+    MMSNS_RET_PRIVACY = 203;
+    MMSNS_RET_COMMENT_HAVE_LIKE = 204;
+    MMSNS_RET_COMMENT_NOT_ALLOW = 205;
+    MMSNS_RET_CLIENTID_EXIST = 206;
+    MMSNS_RET_ISALL = 207;
+    MMSNS_RET_COMMENT_PRIVACY = 208;
+    MM_ERR_SHORTVIDEO_CANCEL = 1000000;
+}
+
+message GetProfileRequest {
+    optional  BaseRequest baseRequest = 1;
+    optional  string userName = 2;
+}
+
+message GetProfileResponse {
+    optional  BaseResponse baseResponse = 1;
+    optional  ModUserInfo userInfo = 2;
+    optional  UserInfoExt userInfoExt = 3;
+}
+
+message UploadVoiceRequest {
+    optional  string FromUserName = 1;
+    optional  string ToUserName = 2;
+    optional  uint32 Offset = 3;
+    optional  int32 Length = 4;
+    optional  string ClientMsgId = 5;
+    optional  uint32 MsgId = 6;
+    optional  int32 VoiceLength = 7;
+    optional  SKBuiltinBuffer_t Data = 8;
+    optional  uint32 EndFlag = 9;
+    optional  BaseRequest BaseRequest = 10;
+    optional  uint32 CancelFlag = 11;
+    optional  string Msgsource = 12;
+    optional  int32 VoiceFormat = 13;
+    optional  uint32 UicreateTime = 14;
+    optional  uint32 ForwardFlag = 15;
+    optional  uint64 NewMsgId = 16;
+    optional  int32 ReqTime = 17;
+    optional  SKBuiltinBuffer_t VoiceId = 18;
+    optional  uint32 Offst = 19;
+}
+
+enum VoiceFormat {
+    MM_VOICE_FORMAT_UNKNOWN = -1;
+    MM_VOICE_FORMAT_AMR = 0;
+    MM_VOICE_FORMAT_SPEEX = 1;
+    MM_VOICE_FORMAT_MP3 = 2;
+    MM_VOICE_FORMAT_WAVE = 3;
+    MM_VOICE_FORMAT_SILK = 4;
+}
+
+message UploadVoiceResponse {
+    optional  string FromUserName = 1;
+    optional  string ToUserName = 2;
+    optional  uint32 Offset = 3;
+    optional  int32 Length = 4;
+    optional  uint32 CreateTime = 5;
+    optional  string ClientMsgId = 6;
+    optional  uint32 MsgId = 7;
+    optional  uint32 VoiceLength = 8;
+    optional  uint32 EndFlag = 9;
+    optional  BaseResponse BaseResponse = 10;
+    optional  uint32 CancelFlag = 11;
+    optional  uint64 NewMsgId = 12;
+}
+
+message QuitChatRoom {
+    optional SKBuiltinString_t ChatRoomName = 1;
+    optional SKBuiltinString_t UserName = 2;
+}
+
+message UploadHDHeadImgRequest {
+    optional  BaseRequest baseRequest = 1;
+    optional  uint32 TotalLen = 2;
+    optional  uint32 StartPos = 3;
+    optional  uint32 HeadImgType = 4;
+    optional  SKBuiltinBuffer_t Data = 5;
+    optional  string ImgHash = 6;
+    optional  string UserName = 7;
+}
+
+message UploadHDHeadImgResponse {
+    optional  BaseResponse baseResponse = 1;
+    optional  uint32 TotalLen = 2;
+    optional  uint32 StartPos = 3;
+    optional  string FinalImgMd5sum = 4;
+    optional  string BigHeadImgUrl = 5;
+    optional  string SmallHeadImgUrl = 6;
+}
+
+message VerifyPswdRequest {
+    optional  BaseRequest baseRequest = 1;
+    optional  int32 opCode = 2;
+    optional  string pwd1 = 3;
+    optional  string pwd2 = 4;
+    optional  SKBuiltinString_t imgSid = 5;
+    optional  SKBuiltinString_t imgCode = 6;
+    optional  SKBuiltinString_t imgEncryptKey = 7;
+    optional  SKBuiltinBuffer_t ksid = 8;
+    optional  uint32 scence = 9;
+    optional  SKBuiltinBuffer_t wtloginRspBuff = 10;
+}
+
+message VerifyPswdResponse {
+    optional  BaseResponse baseResponse = 1;
+    optional  SKBuiltinString_t imgSid = 2;
+    optional  SKBuiltinBuffer_t imgBuf = 3;
+    optional  string ticket = 4;
+    optional  SKBuiltinString_t imgEncryptKey = 5;
+    optional  SKBuiltinBuffer_t a2Key = 6;
+    optional  SKBuiltinBuffer_t ksid = 7;
+    optional  string authKey = 8;
+    optional  SKBuiltinBuffer_t wtloginRspBuff = 9;
+}
+
+message SetPwdRequest {
+    optional  BaseRequest baseRequest = 1;
+    optional  string password = 2;
+    optional  string ticket = 3;
+    optional  SKBuiltinBuffer_t autoAuthKey = 4;
+    optional  uint32 ticketType = 5;
+}
+
+message SetPwdResponse {
+    optional  BaseResponse baseResponse = 1;
+    optional  SKBuiltinBuffer_t autoAuthKey = 2;
+}
+
+message CreateChatRoomRequest {
+    optional  BaseRequest baseRequest = 1;
+    optional  SKBuiltinString_t Topic = 2;
+    optional  uint32 MemberCount = 3;
+    repeated  MemberReq MemberList = 4;
+    optional  uint32 Scene = 5;
+    optional  SKBuiltinBuffer_t ExtBuffer = 6;
+}
+
+message MemberReq {
+    optional  SKBuiltinString_t MemberName = 1;
+}
+
+message CreateChatRoomResponse {
+    optional  BaseResponse baseResponse = 1;
+    optional  SKBuiltinString_t Topic = 2;
+    optional  SKBuiltinString_t Pyinitial = 3;
+    optional  SKBuiltinString_t QuanPin = 4;
+    optional  uint32 MemberCount = 5;
+    repeated  MemberResp MemberLis = 6;
+    optional  SKBuiltinString_t ChatRoomName = 7;
+    optional  SKBuiltinBuffer_t ImgBuf = 8;
+    optional  string BigHeadImgUrl = 9;
+    optional  string SmallHeadImgUrl = 10;
+}
+
+message MemberResp {
+    optional  SKBuiltinString_t MemberName = 1;
+    optional  uint32 MemberStatus = 2;
+    optional  SKBuiltinString_t NickName = 3;
+    optional  SKBuiltinString_t PYInitial = 4;
+    optional  SKBuiltinString_t QuanPin = 5;
+    optional  int32 Sex = 6;
+    optional  SKBuiltinString_t Remark = 9;
+    optional  SKBuiltinString_t RemarkPyinitial = 10;
+    optional  SKBuiltinString_t RemarkQuanPin = 11;
+    optional  uint32 ContactType = 12;
+    optional  string Province = 13;
+    optional  string City = 14;
+    optional  string Signature = 15;
+    optional  uint32 PersonalCard = 16;
+    optional  uint32 VerifyFlag = 17;
+    optional  string VerifyInfo = 18;
+    optional  string Country = 19;
+}
+
+message AddChatRoomMemberRequest {
+    optional  BaseRequest baseRequest = 1;
+    optional  uint32 MemberCount = 2;
+    repeated  MemberReq MemberList = 3;
+    optional  SKBuiltinString_t ChatRoomName = 4;
+    optional  uint32 LastRoomMsgTimeStamp = 5;
+    optional  string AccessApplicationDesp = 6;
+}
+
+message AddChatRoomMemberResponse {
+    optional  BaseResponse baseResponse = 1;
+    optional  uint32 MemberCount = 2;
+    repeated  MemberResp MemberList = 3;
+}
+
+message DelChatRoomMemberRequest {
+    optional  BaseRequest baseRequest = 1;
+    optional  uint32 MemberCount = 2;
+    repeated  MemberReq MemberList = 3;
+    optional  string ChatRoomName = 4;
+    optional  uint32 Scene = 5;
+}
+
+message DelChatRoomMemberResponse {
+    optional  BaseResponse baseResponse = 1;
+    optional  uint32 MemberCount = 2;
+    repeated  DelMemberResp MemberList = 3;
+}
+
+message DelMemberResp {
+    optional  SKBuiltinString_t MemberName = 1;
+}
+
+message GetMFriendResponse {
+    optional  BaseResponse baseResponse = 1;
+    optional  uint32 Count = 2;
+    repeated  FriendList FriendList = 3;
+    optional  string Md5 = 4;
+}
+
+message FriendList {
+    optional  string UserName = 1;
+    optional  string Nickname = 2;
+    optional  string MobileMD5 = 3;
+    optional  int32 Sex = 4;
+    optional  string Province  = 5;
+    optional  string City  = 6;
+    optional  string Signature  = 7;
+    optional  uint32 PersonalCard  = 8;
+    optional  string Alias  = 9;
+    optional  FBFriend FBInfo  = 10;
+    optional  uint32 AlbumFlag  = 11;
+    optional  uint32 AlbumStyle  = 12;
+    optional  string AlbumBGImgID  = 13;
+    optional  SnsUserInfo SnsUserInfo  = 14;
+    optional  string Country  = 15;
+    optional  string MyBrandList  = 16;
+    optional  CustomizedInfo CustomizedInfo  = 17;
+    optional  string BigHeadImgUrl  = 20;
+    optional  string SmallHeadImgUrl  = 21;
+    optional  string AntispamTicket  = 22;
+}
+
+message FBFriend {
+    optional  uint64 id  = 1;
+    optional  string name  = 2;
+    optional  uint64 imgKey  = 3;
+}
+
+message PrivacySettings {
+    optional  int32 Function = 1;
+    optional  int32 Value = 2;
+}
+
+message FriendCirclePrivacySettings {
+    optional  int32 Open = 1;
+    optional  string img = 2;
+    optional  uint32 state = 3;
+    optional  int32 Function = 4;
+    optional  uint32 Value = 5;
+}
+
+message GetFavInfoRequest {
+    optional  BaseRequest baseRequest = 1;
+}
+
+message GetFavInfoResponse {
+    optional  BaseResponse baseResponse = 1;
+    optional  uint64 usedSize = 2;
+    optional  uint64 totalSize = 3;
+    optional  uint64 mxFavFileSize = 4;
+    optional  int32 mxAutoUploadSize = 5;
+    optional  int32 mxAutoDownloadSize = 6;
+}
+
+message SnsSyncRequest {
+    optional  BaseRequest baseRequest = 1;
+    optional  uint32 selector = 2;
+    optional  SKBuiltinBuffer_t  keyBuf  = 3;
+}
+
+message SnsSyncResponse {
+    optional  BaseResponse baseResponse = 1;
+    optional  CmdList cmdList = 2;
+    optional  uint32 continueFlag = 3;
+    optional  SKBuiltinBuffer_t keyBuf = 4;
+}
+
+//视频号
+message FinderBaseRequest {
+    optional  int32 userver = 1;
+    optional  int32 scene = 2;
+    optional  bytes extSpamInfo = 3;
+}
+
+
+//视频号用户首页
+message FinderUserPrepareRequest {
+    optional  BaseRequest baseRequest = 1;
+    optional  int32 scene = 2;
+    optional  FinderBaseRequest finderBasereq = 3;
+    optional  float longitude = 4;
+    optional  float latitude = 5;
+}
+
+message FinderUserPrepareResponse {
+    optional  BaseResponse baseResponse = 1;
+    optional  int32 actionType = 2;
+    optional  FinderNicknameVerifyInfo verifyInfo = 3;
+    optional  FinderContact selfContact = 4;
+    optional  int32 userFlag = 5;
+    optional  string nicknameModifyWording = 6;
+    optional  bool isNonresidentRealtimeLocation = 7;
+    optional  bool isNonresidentWxacctLocation = 8;
+    optional  bool isNonresidentFinderacctLocation = 9;
+}
+
+message FinderNicknameVerifyInfo {
+    optional  string verifyPrefix = 1;
+    optional  string bannerWording = 2;
+    optional  string verifyLink = 3;
+    optional  string appname = 4;
+    optional  string verifyNickname = 5;
+    optional  string headImgUrl = 6;
+    optional  int32 errScene = 7;
+}
+
+message FinderContact {
+    optional  string username = 1;
+    optional  string nickname = 2;
+    optional  string headUrl = 3;
+    optional  uint64 seq = 4;
+    optional  string signature = 5;
+    optional  int32 followFlag = 6;
+    optional  int32 followTime = 7;
+    optional  FinderAuthInfo authInfo = 8;
+    optional  string coverImgUrl = 9;
+    optional  int32 spamStatus = 10;
+    optional  int32 extFlag = 11;
+    optional  FinderContactExtInfo extInfo = 12;
+    optional  int32 originalFlag = 13;
+}
+
+message FinderContactExtInfo {
+    optional  string country = 1;
+    optional  string province = 2;
+    optional  string city = 3;
+    optional  int32 sex = 4;
+    optional  int32 birthYear = 5;
+    optional  int32 birthMonth = 6;
+    optional  int32 birthDay = 7;
+}
+
+message FinderAuthInfo {
+    optional  string realName = 1;
+    optional  int32 authIconType = 2;
+    optional  string authProfession = 3;
+    optional  FinderContact authGuarantor = 4;
+    optional  string detailLink = 5;
+    optional  string appName = 6;
+}
+
+message FinderUserPageRequest {
+    optional  BaseRequest baseRequest = 1;
+    optional  string username = 2;
+    optional  uint64 maxId = 3;
+    optional  string firstPageMd5 = 4;
+    optional  string finderUsername = 5;
+    optional  int32 needFansCount = 6;
+    optional  FinderBaseRequest finderBasereq = 7;
+    optional  bytes lastBuffer = 8;
+}
+
+message FinderUserPageResponse {
+    optional  BaseResponse baseResponse = 1;
+    repeated  FinderObject object = 2;
+    optional  string firstPageMd5 = 3;
+    optional  FinderUserInfo finderUserInfo = 4;
+    optional  FinderContact contact = 5;
+    optional  int32 feedsCount = 6;
+    optional  int32 continueFlag = 7;
+    optional  FinderNicknameVerifyInfo verifyInfo = 8;
+    optional  int32 fansCount = 9;
+    optional  bytes lastBuffer = 10;
+    optional  int32 friendFollowCount = 11;
+    repeated  bytes userTags = 12; //未找到相关PB
+    optional  int32 originalEnctranceFlag = 13;
+}
+
+message FinderUserInfo {
+    optional  string coverImgUrl = 1;
+    optional  int32 authIconType = 2;
+    optional  string authProfession = 3;
+    optional  FinderAuthInfo authInfo = 4;
+}
+
+message FinderObject {
+    optional  uint64 id = 1;
+    optional  string nickname = 2;
+    optional  string username = 3;
+    optional  FinderObjectDesc objectDesc = 4;
+    optional  int32 createtime = 5;
+    optional  int32 likeFlag = 6;
+    repeated  bytes likeList = 7; //未找到相关PB
+    repeated  FinderCommentInfo commentList = 8;
+    optional  int32 forwardCount = 9;
+    optional  FinderContact contact = 10;
+    optional  string displayidDiscarded = 11;
+    repeated  FinderRecommendInfo recommenderList = 12; //疑似PB不对
+    optional  uint64 displayid = 13;
+    optional  int32 likeCount = 14;
+    optional  int32 commentCount = 15;
+    optional  string recommendReason = 16;
+    optional  int32 readCount = 17;
+    optional  int32 deletetime = 18;
+    optional  int32 commentClose = 19;
+    optional  uint32 refObjectFlag = 20;
+    optional  uint32 refObjectid = 21;
+    optional  FinderContact refObjectContact = 22;
+    optional  int32 recommendType = 23;
+    optional  int32 friendLikeCount = 24;
+    optional  string objectNonceId = 25;
+    optional  string refObjectNonceId = 26;
+    optional  int32 objectStatus = 27;
+    optional  string sendShareFavWording = 28;
+    optional  int32 originalFlag = 29;
+    optional  int32 secondaryShowFlag = 30;
+    optional  string tipsWording = 31;
+    optional  int32 orgRecommendType = 32;
+}
+
+message FinderObjectDesc {
+    optional  string description = 1;
+    repeated  FinderMedia media = 2; //疑似PB不对
+    optional  int32 mediaType = 3;
+    optional  FinderMediaExtra extra = 4;
+    optional  FinderLocation location = 5;
+    optional  FinderExtendedReading extReading = 6;
+    optional  FinderTopic topic = 7;
+}
+
+message FinderMedia {
+    optional  string Url = 1;
+    optional  string ThumbUrl = 2;
+    optional  int32 MediaType = 3;
+    optional  int32 VideoPlayLen = 4;
+    optional  float Width = 5;
+    optional  float Height = 6;
+    optional  string Md5Sum = 7;
+    optional  int32 FileSize = 8;
+    optional  int32 Bitrate = 9;
+    repeated  FinderMediaSpec Spec = 10;
+}
+
+message FinderMediaSpec {
+    optional  string fileFormat = 1;
+    optional  int32 firstLoadBytes = 2;
+    optional  int32 bitRate = 3;
+    optional  string codingFormat = 4;
+}
+
+message FinderMediaExtra {
+    optional  string text = 1;
+}
+
+message FinderLocation {
+    optional  float longitude = 1;
+    optional  float latitude = 2;
+    optional  string city = 3;
+    optional  string poiName = 4;
+    optional  string poiAddress = 5;
+    optional  string poiClassifyId = 6;
+    optional  int32 poiClassifyType = 7;
+}
+
+message FinderExtendedReading {
+    optional  string link = 1;
+    optional  string title = 2;
+}
+
+message FinderTopic {
+    optional  string finderTopicInfo = 1;
+}
+
+message FinderCommentInfo {
+    optional  string username = 1;
+    optional  string nickname = 2;
+    optional  string content = 3;
+    optional  uint32 commentId = 4;
+    optional  uint32 replyCommentId = 5;
+    optional  int32 deleteFlag = 6;
+    optional  string headUrl = 7;
+    repeated  string levelTwoComment = 8; //未找到相关PB
+    optional  uint32 createtime = 9;
+    optional  string replyNickname = 10;
+    optional  string displayidDiscarded = 11;
+    optional  int32 likeFlag = 12;
+    optional  int32 likeCount = 13;
+    optional  uint32 displayid = 14;
+    optional  int32 expandCommentCount = 15;
+    optional  bytes lastBuffer = 16;
+    optional  int32 continueFlag = 17;
+    optional  int32 displayFlag = 18;
+    optional  int32 blacklistFlag = 19;
+    optional  string replyContent = 20;
+    optional  string replyUsername = 21;
+    optional  string clientId = 22;
+    optional  int32 upContinueFlag = 23;
+}
+
+//疑似不对
+message FinderRecommendInfo {
+    optional  string tid = 1;
+    optional  uint32 recommendType = 2;
+    optional  string recommendReason = 3;
+    optional  uint32 orgRecommendType = 4;
+    optional  uint32 lastInsertedRowID = 5;
+    optional  bool isAutoIncrement = 6;
+}
+
+//群相关
+message GetContactRequest {
+    optional  BaseRequest BaseRequest = 1;
+    optional  int32 UserCount = 2;
+    repeated  SKBuiltinString_t UserNameList = 3;
+    optional  int32 AntispamTicketCount = 4;
+    repeated  SKBuiltinString_t AntispamTicket = 5;
+    optional  int32 FromChatRoomCount = 6;
+    optional  SKBuiltinString_t FromChatRoom = 7;
+    optional  int32 GetContactScene = 8;
+    optional  SKBuiltinBuffer_t ChatRoomAccessVerifyTicket = 9;
+}
+
+message GetContactResponse {
+    optional  BaseResponse BaseResponse = 1;
+    optional  int32 ContactCount = 2;
+    repeated  ModContact ContactList = 3;
+    repeated  int32 Ret = 4;
+    repeated  VerifyUserValidTicket Ticket = 5;
+    repeated  bytes sendMsgTicketList = 6; //未找到相关PB
+}
+
+message VerifyUserValidTicket {
+    optional  string  Username = 1;
+    optional  string  Antispamticket = 2;
+}
+
+message GetChatroomMemberDetailRequest {
+    optional  BaseRequest BaseRequest = 1;
+    optional  string ChatroomUserName = 2;
+    optional  int32 clientVersion = 3;
+}
+
+message GetChatroomMemberDetailResponse {
+    optional  BaseResponse BaseResponse = 1;
+    optional  string ChatroomUserName = 2;
+    optional  int32 ServerVersion = 3;
+    optional  ChatRoomMemberData NewChatroomData = 4;
+}
+
+message GetChatRoomInfoDetailRequest {
+    optional  BaseRequest BaseRequest = 1;
+    optional  string ChatroomUserName = 2;
+}
+
+message GetChatRoomInfoDetailResponse {
+    optional  BaseResponse BaseResponse = 1;
+    optional  string Announcement = 2;
+    optional  int32 ChatRoomInfoVersion = 3;
+    optional  string AnnouncementEditor = 4;
+    optional  int32 AnnouncementPublishTime = 5;
+    optional  int32 ChatRoomStatus = 6;
+    optional  int32 ChatRoomBusinessType = 7;
+    optional  RoomTools RoomTools = 8;
+}
+
+message RoomTools {
+    optional  int32 RoomToolsWxAppCount = 1;
+    repeated  RoomToolsTodo RoomToolsWxApps = 2;
+}
+
+message RoomToolsTodo {
+    optional  string TodoId = 1;
+    optional  string UserName = 2;
+    optional  string Path = 3;
+    optional  int32 Time = 4;
+    optional  bytes CustomInfo = 5;
+    optional  string Title = 6;
+    optional  string Tcreator = 7;
+    optional  uint64 relatedMsgId = 8;
+    optional  string manager = 9;
+}
+
+message SetChatRoomAnnouncementRequest {
+    optional  BaseRequest BaseRequest = 1;
+    optional  string chatRoomName = 2;
+    optional  string announcement = 3;
+    optional  int32 setAnnouncementFlag = 4;
+}
+
+message SetChatRoomAnnouncementResponse {
+    optional  BaseResponse BaseResponse = 1;
+}
+
+message ChatRoomAdminRequest {
+    optional  BaseRequest BaseRequest = 1;
+    optional  string chatRoomName = 2;
+    repeated  string userNameList = 3;
+}
+
+message ChatRoomAdminResponse {
+    optional  BaseResponse BaseResponse = 1;
+}
+
+message GetVoiceTransResRequest {
+    optional  BaseRequest BaseRequest = 1;
+    optional  string voiceId = 2;
+}
+
+message GetVoiceTransResResponse {
+    optional  BaseResponse BaseResponse = 1;
+    optional  VoiceTransRes transRes = 2;
+    optional  QueryResCtx queryCtx = 3;
+}
+
+message VoiceTransRes {
+    optional  int32 sequence = 1;
+    optional  int32 endFlag = 2;
+    optional  string result = 3;
+}
+
+message QueryResCtx {
+    optional  int32 interval = 1;
+}
+
+message UploadVoiceForTransRequest {
+    optional  BaseRequest BaseRequest = 1;
+    optional  string voiceId = 2;
+    optional  VoiceAttr voiceAttr = 3;
+    optional  UploadVoiceCtx uploadCtx = 4;
+    optional  SKBuiltinBuffer_t data = 5;
+    optional  int32 scene = 6;
+    optional  string fromUserName = 7;
+    optional  string toUserName = 8;
+}
+
+message UploadVoiceForTransResponse {
+    optional  BaseResponse BaseResponse = 1;
+    optional  UploadVoiceCtx uploadCtx = 2;
+}
+
+message VoiceAttr {
+    optional  int32 fileType = 1;
+    optional  int32 encodeType = 2;
+    optional  int32 sampleRate = 3;
+    optional  int32 bitsPerSample = 4;
+}
+
+message UploadVoiceCtx {
+    optional  int32 totalLen = 1;
+    optional  int32 startPos = 2;
+    optional  int32 dataLen = 3;
+}
+
+message DownloadVoiceRequest {
+    optional  int32 msgId = 1;
+    optional  int32 offset = 2;
+    optional  int32 length = 3;
+    optional  string clientMsgId = 4;
+    optional  BaseRequest BaseRequest = 5;
+    optional  int64 newMsgId = 6;
+    optional  string chatRoomName = 7;
+    optional  int64 masterBufId = 8;
+}
+
+message DownloadVoiceResponse {
+    optional  int32 msgId = 1;
+    optional  int32 offset = 2;
+    optional  int32 length = 3;
+    optional  int32 voiceLength = 5;
+    optional  string clientMsgId = 6;
+    optional  SKBuiltinBuffer_t data = 7;
+    optional  int32 endFlag = 8;
+    optional  BaseResponse BaseResponse = 9;
+    optional  int32 cancelFlag = 10;
+    optional  uint32 newMsgId = 11;
+}
+
+message SendAppMsgRequest {
+    optional  BaseRequest BaseRequest = 1;
+    optional  AppMsg msg = 2;
+    optional  string commentUrl = 3;
+    optional  int32 reqTime = 4;
+    optional  string md5 = 5;
+    optional  int32 fileType = 6;
+    optional  string signature = 7;
+    optional  string fromSence = 8;
+    optional  int32 hitMd5 = 9;
+    optional  int32 crc32 = 10;
+    optional  int32 msgForwardType = 11;
+    optional  int32 directShare = 12;
+    optional  string sendMsgTicket = 13;
+}
+
+message SendAppMsgResponse {
+    optional  BaseResponse BaseRequest = 1;
+    optional  string appId = 2;
+    optional  string fromUserName = 3;
+    optional  string toUserName = 4;
+    optional  int32 msgId = 5;
+    optional  string clientMsgId = 6;
+    optional  int32 createTime = 7;
+    optional  int32 type = 8;
+    optional  int64 newMsgId = 9;
+    optional  string aeskey = 10;
+    optional  string msgSource = 11;
+    optional  int32 actionFlag = 12;
+}
+
+message AppMsg {
+    optional  string fromUserName = 1;
+    optional  string appId = 2;
+    optional  int32 sdkVersion = 3;
+    optional  string toUserName = 4;
+    optional  int32 type = 5;
+    optional  string content = 6;
+    optional  int64 createTime = 7;
+    optional  string clientMsgId = 8;
+    optional  SKBuiltinBuffer_t thumb = 9;
+    optional  int32 source = 10;
+    optional  int32 remindId = 11;
+    optional  string msgSource = 12;
+    optional  string shareUrlOriginal = 13;
+    optional  string shareUrlOpen = 14;
+    optional  string jsAppId = 15;
+}
+
+message HongBaoReq {
+    optional  BaseRequest BaseRequest = 1;
+    optional  int32 cgiCmd = 2;
+    optional  int32 outPutTyp = 3;
+    optional  SKBuiltinBuffer_t reqText = 4;
+}
+
+message HongBaoRes {
+    optional  BaseResponse BaseRequest = 1;
+    optional  SKBuiltinBuffer_t retText = 2;
+    optional  int32 platRet = 3;
+    optional  string platMsg = 4;
+    optional  int32 cgiCmdid = 5;
+    optional  int32 errorType = 6;
+    optional  string errorMsg = 7;
+}
+
+message DeviceInfo {
+    repeated SafeDevice SafeDevices = 1;
+    optional bool _1 = 2;
+    optional bool _2 = 3;
+    optional bool _3 = 4;
+    optional bool _4 = 5;
+    optional bool _5 = 6;
+}
+
+message GetSafetyInfoRequest {
+    optional BaseRequest BaseRequest = 1;
+}
+
+message GetSafetyInfoResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional DeviceInfo DeviceInfo = 2;
+}
+
+message DelSafetyInfoRequest {
+    optional BaseRequest BaseRequest = 1;
+    optional string Uuid = 2;
+}
+
+message DelSafetyInfoResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional uint32 SafeDevice = 2;
+}
+
+message GetQrcodeRequest {
+    optional BaseRequest BaseRequest = 1;
+    optional SKBuiltinString_t UserName = 2;
+    optional uint32 Style = 3;
+}
+
+message GetQrcodeResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional SKBuiltinBuffer_t Qrcode = 2;
+}
+
+message BindMobileRequest {
+    optional BaseRequest BaseRequest = 1;
+    optional string UserName = 2;
+    optional string Mobile = 3;
+    optional int32 Opcode = 4;
+    optional string VerifyCode = 5;
+    optional int32 DialFlag = 6;
+    optional string DialLang = 7;
+    optional string AuthTicket = 8;
+    optional uint32 ForceReg = 9;
+    optional string SafeDeviceName = 10;
+    optional string SafeDeviceType = 11;
+    optional SKBuiltinBuffer_t RandomEncryKey = 12;
+    optional string Language = 13;
+    optional uint32 InputMobileRetrys = 14;
+    optional uint32 AdjustRet = 15;
+    optional string ClientSeqID = 16;
+
+}
+
+message BindMobileResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional string Ticket = 2;
+    optional string Smsno = 3;
+    optional uint32 NeedSetPwd = 4;
+    optional string Pwd = 5;
+    optional string UserName = 6;
+    optional HostList NewHostList = 7;
+    optional BuiltinIPList BuiltInIPList = 8;
+    optional NetworkControl NetworkControl = 9;
+    optional string AuthTicket = 10;
+    optional uint32 SafeDevice = 11;
+    optional string CountryCode = 12;
+    optional uint32 ObsoleteItem1 = 13;
+    optional SafeDeviceList SafeDeviceList = 14;
+    optional string PureMobile = 15;
+    optional string FormatedMobile = 16;
+    optional ShowStyleKey ShowType = 17;
+}
+
+message MassSendRequest {
+    optional BaseRequest BaseRequest = 1;
+    optional string ToList = 2;
+    optional string ToListMd5 = 3;
+    optional string ClientID = 4;
+    optional uint32 MsgType = 5;
+    optional uint32 MediaTime = 6;
+    optional SKBuiltinBuffer_t DataBuffer = 7;
+    optional uint32 DataStartPos = 8;
+    optional uint32 DataTotalLen = 9;
+    optional uint32 ThumbTotalLen = 10;
+    optional uint32 ThumbStartPos = 11;
+    optional SKBuiltinBuffer_t ThumbData = 12;
+    optional uint32 CameraType = 13;
+    optional uint32 VideoSource = 14;
+    optional uint32 ToListCount = 15;
+    optional uint32 IsSendAgain = 16;
+    optional uint32 CompressType = 17;
+    optional uint32 VoiceFormat = 18;
+    optional string VideoUrl = 19;
+    optional string ThumbUrl = 20;
+    optional uint32 ThumbWidth = 21;
+    optional uint32 ThumbHeight = 22;
+    optional string ThumbAesKey = 23;
+    optional string VideoAesKey = 24;
+}
+
+message MassSendResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional uint32 DataStartPos = 2;
+    optional uint32 ThumbStartPos = 3;
+    optional uint32 MaxSupport = 4;
+}
+
+message UploadVideoRequest {
+    optional BaseRequest BaseRequest = 1;
+    optional  string ClientMsgID = 2;
+    optional  string FromUserName = 3;
+    optional  string ToUserName = 4;
+    optional  uint32 ThumbTotalLen = 5;
+    optional  uint32 ThumbStartPos = 6;
+    optional  SKBuiltinBuffer_t ThumbData = 7;
+    optional  uint32 VideoTotalLen = 8;
+    optional  uint32 VideoStartPos = 9;
+    optional  SKBuiltinBuffer_t VideoData = 10;
+    optional  uint32 PlayLength = 11;
+    optional  uint32 NetWorkEnv = 12;
+    optional  uint32 CameraType = 13;
+    optional  uint32 FuncFlag = 14;
+    optional  string MsgSource = 15;
+    optional  string CDNVideoUrl = 16;
+    optional  string AESKey = 17;
+    optional  int32 EncryVer = 18;
+    optional  string CDNThumbUrl = 19;
+    optional  int32 CDNThumbImgSize = 20;
+    optional  int32 CDNThumbImgHeigth = 21;
+    optional  int32 CDNThumbImgWidth = 22;
+    optional  string CDNThumbAESKey = 23;
+    optional  int32 VideoFrom = 24;
+    optional  uint32 ReqTime = 25;
+    optional  string VideoMd5 = 26;
+    optional  string StreamVideoUrl = 27;
+    optional  uint32 StreamVideoTotalTime = 28;
+    optional  string StreamVideoTitle = 29;
+    optional  string StreamVideoWording = 30;
+    optional  string StreamVideoWebUrl = 31;
+    optional  string StreamVideoThumbUrl = 32;
+    optional  string StreamVideoPublishId = 33;
+    optional  string StreamVideoAdUxInfo = 34;
+    optional  string StatExtStr = 35;
+    optional  string HitMd5 = 36;
+    optional  string VideoNewMd5 = 37;
+    optional  string Crc32 = 38;
+    optional  string MsgForwordType = 39;
+}
+
+message UploadVideoResponse {
+    optional BaseResponse BaseResponse = 1;
+    optional  string ClinetMsgID = 2;
+    optional  uint32 MsgID = 3;
+    optional  uint32 ThumbStartPos = 4;
+    optional  uint32 VideoStartPos = 5;
+    optional  uint64 NewMsgID = 6;
+    optional  string AESKey = 7;
+}
